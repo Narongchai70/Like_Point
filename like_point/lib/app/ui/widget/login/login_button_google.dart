@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class LoginButtonGoogle extends StatelessWidget {
   final VoidCallback onPressed;
-
   const LoginButtonGoogle({super.key, required this.onPressed});
 
   @override
@@ -20,7 +19,7 @@ class LoginButtonGoogle extends StatelessWidget {
           ],
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: 61),
+          constraints: BoxConstraints(minHeight: 58),
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(

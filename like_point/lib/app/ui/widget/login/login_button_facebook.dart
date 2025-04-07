@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class LoginButtomFacebook extends StatelessWidget {
+class LoginButtonFacebook extends StatelessWidget {
   final VoidCallback onPressed;
-  const LoginButtomFacebook({super.key, required this.onPressed});
+  const LoginButtonFacebook({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class LoginButtomFacebook extends StatelessWidget {
           ],
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: 61),
+          constraints: BoxConstraints(minHeight: 58),
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
