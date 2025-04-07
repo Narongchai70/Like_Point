@@ -25,7 +25,10 @@ class _LoginState extends State<Login> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFFCAA1FF), Color(0xFF8FAEFF)],
+            colors: [
+              Color.fromARGB(255, 128, 33, 155),
+              Color.fromARGB(255, 212, 0, 249),
+            ],
           ),
         ),
         child: Padding(

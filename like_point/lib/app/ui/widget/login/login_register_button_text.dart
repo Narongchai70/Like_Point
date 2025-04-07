@@ -10,10 +10,16 @@ class RegisterButtonText extends StatelessWidget {
       onPressed: onPressed,
       child: const Text(
         'Sign Up Now',
+
         style: TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w600,
           color: Colors.white,
+          decoration: TextDecoration.underline,
+          decorationColor: Colors.white,
+          decorationThickness: 2,
+          decorationStyle: TextDecorationStyle.solid,
+          height: 5,
         ),
       ),
     );

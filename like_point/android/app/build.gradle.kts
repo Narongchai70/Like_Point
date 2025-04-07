@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -7,6 +8,7 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// เตรียมตัวแปรไว้เฉย ๆ ยังไม่ต้องใช้
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
@@ -28,39 +30,30 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.like_point"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
- signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as String
-        }
-    }
+    // ❌ คอมเมนต์ signingConfigs ออกทั้งหมด
+//    signingConfigs {
+//        create("release") {
+//            keyAlias = keystoreProperties["keyAlias"] as String
+//            keyPassword = keystoreProperties["keyPassword"] as String
+//            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+//            storePassword = keystoreProperties["storePassword"] as String
+//        }
+//    }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("release")
+            // ❌ คอมเมนต์ signingConfig ของ release ออก
+            // signingConfig = signingConfigs.getByName("release")
         }
     }
-    
 }
-// def keystoreProperties = new Properties()
-// def keystorePropertiesFile = rootProject.file("key.properties")
-// if (keystorePropertiesFile.exists()) {
-//     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-// }
 
 flutter {
     source = "../.."
