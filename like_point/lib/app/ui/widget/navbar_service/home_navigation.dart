@@ -3,7 +3,7 @@ import 'package:like_point/app/ui/modules/champion/champion_page.dart';
 import 'package:like_point/app/ui/modules/home/home_page.dart';
 import 'package:like_point/app/ui/modules/profile/profile_page.dart';
 import 'package:like_point/app/ui/modules/settings/settings_page.dart';
-import 'package:like_point/app/ui/widget/bottom_navbar_service.dart';
+import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart';
 
 class HomeNavigation extends StatefulWidget {
   const HomeNavigation({super.key});

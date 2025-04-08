@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:like_point/app/ui/widget/bottom_navbar_service.dart';
+import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart';
 import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
 
