@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067385721011",
+    "project_id": "like-point",
+    "storage_bucket": "like-point.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067385721011:android:dd4fe2b658f0b4c55260c6",
+        "android_client_info": {
+          "package_name": "com.example.like_point"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsY0ncuge4cdc7k0suT6ljX3QcAT1oDtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

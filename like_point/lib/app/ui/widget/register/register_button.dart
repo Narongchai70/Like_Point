@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:like_point/app/ui/modules/register/register_controller.dart';
 
 class RegisterButton extends StatelessWidget {
   final void Function() onPressed;
-  const RegisterButton({super.key, required this.onPressed});
+  
+  RegisterButton({super.key, required this.onPressed});
+  final RegisterController registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class RegisterButton extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: 57),
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: (){registerController.registerUser;},
 
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
