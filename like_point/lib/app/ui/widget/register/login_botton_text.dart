@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/ui/modules/register/register_page.dart';
+import 'package:like_point/app/ui/modules/login/login_page.dart';
 
-class RegisterButtonText extends StatelessWidget {
-  final void Function()? onPressed;
-  const RegisterButtonText({super.key, this.onPressed});
+class LoginBottonText extends StatelessWidget {
+    final void Function()? onPressed;
+  const LoginBottonText({super.key , this.onPressed});
+   
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class RegisterButtonText extends StatelessWidget {
       onPressed:
           onPressed ??
           () {
-            Get.to(() =>Register());
+            Get.to(() =>Login());
           },
       child: const Text(
         'Sign Up Now',
