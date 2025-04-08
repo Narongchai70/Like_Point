@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_point/app/ui/modules/login/login_controller.dart';
 import 'package:like_point/app/ui/widget/custom_text_file.dart';
 
 import 'package:like_point/app/ui/widget/login/login_button.dart';
@@ -17,6 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,27 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 80),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [LoginButton(onPressed: () {})],
+                    children: [
+                      LoginButton(
+                        onPressed: () {
+                          final email = emailController.text.trim();
+                          final password = passwordController.text.trim();
+
+                          if (email.isEmpty || password.isEmpty) {
+                            Get.snackbar(
+                              "Warning",
+                              "Please fill in both email and password.",
+                            );
+                            return;
+                          }
+
+                          loginController.login(
+                            email: email,
+                            password: password,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   SizedBox(height: 58),
                   Row(
@@ -127,7 +151,6 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         RegisterButtonText(),
-                        
                       ],
                     ),
                   ),

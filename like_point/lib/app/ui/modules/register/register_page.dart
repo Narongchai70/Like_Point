@@ -93,6 +93,7 @@ class Register extends StatelessWidget {
                         final password = passwordController.text.trim();
                         final confirmPassword =
                             confirmPasswordController.text.trim();
+
                         if (username.isEmpty ||
                             email.isEmpty ||
                             password.isEmpty ||

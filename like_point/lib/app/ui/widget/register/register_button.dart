@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:like_point/app/ui/modules/register/register_controller.dart';
 
 class RegisterButton extends StatelessWidget {
   final void Function() onPressed;
-  
-  RegisterButton({super.key, required this.onPressed});
-  final RegisterController registerController = Get.put(RegisterController());
+
+  const RegisterButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +13,26 @@ class RegisterButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.25),
+              color: const Color.fromRGBO(0, 0, 0, 0.25),
               blurRadius: 4,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
         child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: 57),
+          constraints: const BoxConstraints(minHeight: 57),
           child: ElevatedButton(
-            onPressed: (){registerController.registerUser;},
-
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              side: BorderSide(color: Colors.black, width: 1.5),
+              side: const BorderSide(color: Colors.black, width: 1.5),
               elevation: 1,
             ),
-            child: Text(
+            child: const Text(
               'Sign Up',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800),
             ),
