@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/ui/widget/home_navigation.dart';
+import 'package:like_point/app/ui/widget/navbar_service/home_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
@@ -17,8 +17,6 @@ class LoginController extends GetxController {
       await prefs.setString('email', email);
 
       Get.snackbar("Login Success", "Welcome back!");
-
-      // ✅ เรียกหน้า HomeNavigation แล้วลบทุกหน้าก่อนหน้า
       Get.offAll(() => const HomeNavigation());
     } on FirebaseAuthException catch (e) {
       String message = "Login failed.";

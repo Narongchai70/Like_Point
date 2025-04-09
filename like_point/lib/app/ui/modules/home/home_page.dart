@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:like_point/app/ui/widget/home/home_bottun_text_see_all.dart';
+import 'package:like_point/app/ui/widget/home/home_carouselview.dart';
+import 'package:like_point/app/ui/widget/home/home_dropdown.dart';
 import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart';
 import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
@@ -47,6 +50,20 @@ class _HomePageState extends State<HomePage> {
                             HomeSearchButton(onPressed: () {}),
                           ],
                         ),
+                        SizedBox(height: 20),
+                        Row(children: [HomeDropdown()]),
+                        
+                        Row(
+                          children: [
+                           const Text(
+                              'Followed players',
+                              style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.w600),
+                            ),
+                            Spacer(),
+                            HomeBottunTextSeeAll(),
+                          ],
+                        ),
+                        HomeCarouselview()
                       ],
                     ),
                   ),

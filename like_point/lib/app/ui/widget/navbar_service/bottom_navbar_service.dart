@@ -13,7 +13,7 @@ class BottomNavBarService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 14),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: Container(
@@ -37,18 +37,18 @@ class BottomNavBarService extends StatelessWidget {
             unselectedItemColor: Colors.grey.shade400,
             showUnselectedLabels: true,
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(icon: Icon(Icons.home,size: 40,), label: 'Home',),
               BottomNavigationBarItem(
-                icon: Icon(Icons.school),
+                icon: Icon(Icons.school,size: 40,),
                 label: 'Champion',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,size: 40,),
                 label: 'Profile',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
+                icon: Icon(Icons.settings,size: 40,),
+                label: 'Setting',
               ),
             ],
           ),

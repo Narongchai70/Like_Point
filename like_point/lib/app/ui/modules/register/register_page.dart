@@ -64,23 +64,27 @@ class Register extends StatelessWidget {
                 CustomTextField(
                   hintText: 'UserName',
                   controller: userController,
+                  autoFocus:true
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
                   hintText: 'Email Address',
                   controller: emailController,
+                  autoFocus:true
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
                   hintText: 'Password',
                   controller: passwordController,
                   isPassword: true,
+                  autoFocus:true
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
                   hintText: 'Confirm Password',
                   controller: confirmPasswordController,
                   isPassword: true,
+                  autoFocus:true
                 ),
                 const SizedBox(height: 40),
                 Row(
