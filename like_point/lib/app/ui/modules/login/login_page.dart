@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
                   CustomTextField(
                     hintText: 'Email Address',
                     controller: emailController,
-                    autoFocus:true
+                    autoFocus: true,
                   ),
 
                   SizedBox(height: 15),
@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                     hintText: 'Password',
                     controller: passwordController,
                     isPassword: true,
-                    autoFocus:true
+                    autoFocus: true,
                   ),
                   SizedBox(height: 80),
                   Row(

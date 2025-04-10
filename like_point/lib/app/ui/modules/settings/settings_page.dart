@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:like_point/app/ui/widget/setting/setting_email_text_field.dart';
+import 'package:like_point/app/ui/widget/setting/setting_logout.dart';
+import 'package:like_point/app/ui/widget/setting/setting_password_text_field.dart';
+import 'package:like_point/app/ui/widget/setting/setting_username_text_field.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -29,9 +33,49 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
-                child: Column(children: [Text('Setting')]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Email',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    SettingEmailTextField(),
+                    SizedBox(height: 30),
+                    Text(
+                      'Password',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SettingPasswordTextField(),
+                    SizedBox(height: 70),
+                    Text(
+                      'UserName',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    SettingUsernameTextField(),
+                    SizedBox(height: 38),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [SettingLogout()],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

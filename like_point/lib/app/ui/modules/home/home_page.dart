@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:like_point/app/ui/widget/home/home_bottun_text_see_all.dart';
 import 'package:like_point/app/ui/widget/home/home_carouselview.dart';
 import 'package:like_point/app/ui/widget/home/home_dropdown.dart';
-import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart';
 import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
 
@@ -14,8 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,18 +49,22 @@ class _HomePageState extends State<HomePage> {
                         ),
                         SizedBox(height: 20),
                         Row(children: [HomeDropdown()]),
-                        
+
                         Row(
                           children: [
-                           const Text(
+                            const Text(
                               'Followed players',
-                              style: TextStyle(color: Colors.white,fontSize: 19,fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 19,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                             Spacer(),
                             HomeBottunTextSeeAll(),
                           ],
                         ),
-                        HomeCarouselview()
+                        HomeCarouselview(),
                       ],
                     ),
                   ),
@@ -72,15 +73,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),
-
-      bottomNavigationBar: BottomNavBarService(
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
       ),
     );
   }

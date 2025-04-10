@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:like_point/app/ui/modules/champion/champion_page.dart';
-import 'package:like_point/app/ui/modules/home/home_page.dart';
-import 'package:like_point/app/ui/modules/profile/profile_page.dart';
-import 'package:like_point/app/ui/modules/settings/settings_page.dart';
-import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart';
+import 'package:get/get.dart';
+import 'package:like_point/app/ui/widget/navbar_service/bottom_navbar_service.dart'; 
+import 'package:like_point/app/ui/widget/navbar_service/nav_controller.dart';
 
-class HomeNavigation extends StatefulWidget {
+class HomeNavigation extends StatelessWidget {
   const HomeNavigation({super.key});
 
   @override
-  State<HomeNavigation> createState() => _HomeNavigationState();
-}
-
-class _HomeNavigationState extends State<HomeNavigation> {
-  int selectedIndex = 0;
-
-  final List<Widget> pages = const [
-    HomePage(),
-    ChampionPage(),
-    ProfilePage(),
-    SettingsPage(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: IndexedStack(index: selectedIndex, children: pages),
-      bottomNavigationBar: BottomNavBarService(
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          setState(() => selectedIndex = index);
-        },
-      ),
-    );
+    final NavController controller = Get.put(NavController());
+
+    return Obx(() => Scaffold(
+          extendBody: true,
+          body: IndexedStack(
+            index: controller.selectedIndex.value,
+            children: controller.pages,
+          ),
+          bottomNavigationBar: NavigationBarService(
+            selectedIndex: controller.selectedIndex.value,
+            onDestinationSelected: (index) {
+              controller.selectedIndex.value = index;
+            },
+          ),
+        ));
   }
 }

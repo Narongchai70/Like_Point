@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ChampionData extends StatelessWidget {
+  final String title;
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
+  const ChampionData({super.key, required this.title});
 
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +22,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   Color.fromARGB(255, 212, 0, 249),
                 ],
               ),
+            ),
+          ),
+          Center(
+            child: Text(
+              'รายละเอียดของ $title',
+              style: const TextStyle(fontSize: 24),
             ),
           ),
         ],
