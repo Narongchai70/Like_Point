@@ -5,7 +5,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final bool isPassword;
   final bool autoFocus;
-  final TextInputType? keyboardType; // ✅ เพิ่ม
+  final TextInputType? keyboardType;
 
   const CustomTextField({
     Key? key,
