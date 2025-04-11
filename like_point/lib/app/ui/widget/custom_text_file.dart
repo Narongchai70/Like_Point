@@ -5,13 +5,15 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final bool isPassword;
   final bool autoFocus;
+  final TextInputType? keyboardType; // ✅ เพิ่ม
 
   const CustomTextField({
     Key? key,
     required this.hintText,
     required this.controller,
     this.isPassword = false,
-    this.autoFocus = false, 
+    this.autoFocus = false,
+    this.keyboardType,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void dispose() {
-    _focusNode.dispose(); 
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -55,11 +57,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
         focusNode: _focusNode,
         controller: widget.controller,
         obscureText: widget.isPassword ? _obscureText : false,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
         decoration: InputDecoration(
           hintText: widget.hintText,
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 18,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.black, width: 1.5),
@@ -68,19 +74,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.black, width: 1.5),
           ),
-          suffixIcon: widget.isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.grey[700],
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-              : null,
+          suffixIcon:
+              widget.isPassword
+                  ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey[700],
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                  : null,
         ),
       ),
     );
