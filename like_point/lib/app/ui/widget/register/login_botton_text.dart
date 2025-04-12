@@ -16,7 +16,7 @@ class LoginBottonText extends StatelessWidget {
             Get.to(() =>Login());
           },
       child: const Text(
-        'Sign Up Now',
+        'Login Up Now',
         style: TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w600,
