@@ -14,9 +14,21 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 128, 33, 155)),
-      extendBody: true,
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 128, 33, 155),
+        title: const Text(
+          'Settings',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -33,12 +45,13 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    SizedBox(height: screenHeight * 0.02),
+                    const Text(
                       'Email',
                       style: TextStyle(
                         color: Colors.white,
@@ -46,10 +59,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 12),
-                    SettingEmailTextField(),
-                    SizedBox(height: 30),
-                    Text(
+                    SizedBox(height: screenHeight * 0.015),
+                    const SettingEmailTextField(),
+                    SizedBox(height: screenHeight * 0.035),
+
+                    const Text(
                       'Password',
                       style: TextStyle(
                         color: Colors.white,
@@ -57,9 +71,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SettingPasswordTextField(),
-                    SizedBox(height: 70),
-                    Text(
+                    const SettingPasswordTextField(),
+                    SizedBox(height: screenHeight * 0.06),
+
+                    const Text(
                       'UserName',
                       style: TextStyle(
                         color: Colors.white,
@@ -67,13 +82,15 @@ class _SettingsPageState extends State<SettingsPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.02),
                     SettingUsernameTextField(),
-                    SizedBox(height: 38),
+                    SizedBox(height: screenHeight * 0.04),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [SettingLogout()],
+                      children: const [SettingLogout()],
                     ),
+                    SizedBox(height: screenHeight * 0.02),
                   ],
                 ),
               ),

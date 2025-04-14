@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  RxString username = ''.obs;
-  RxBool isLoading = true.obs;
+  final RxString username = ''.obs;
+  final RxBool isLoading = true.obs;
 
   @override
   void onInit() {
@@ -13,14 +13,26 @@ class HomeController extends GetxController {
   }
 
   Future<void> loadUsername() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
 
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final uid = user.uid;
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
     if (doc.exists && doc.data() != null) {
-      username.value = doc.data()!['username'] ?? 'User';
-      isLoading.value = false;
+      final name = doc.data()!['username']?.toString().trim() ?? '';
+      if (name.isNotEmpty) {
+        username.value = name;
+      } else if (user.email != null && user.email!.contains('@')) {
+        username.value = user.email!.split('@')[0];
+      }
     }
+
+    isLoading.value = false;
+  }
+
+  void updateUsernameLocally(String newName) {
+    username.value = newName.trim();
   }
 }

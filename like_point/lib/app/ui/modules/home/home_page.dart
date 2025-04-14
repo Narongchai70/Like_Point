@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/widget/home/home_bottun_text_see_all.dart';
 import 'package:like_point/app/ui/widget/home/home_carouselview.dart';
@@ -9,7 +8,7 @@ import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
+  HomePage({super.key});
 
   final HomeController controller = Get.put(HomeController());
 
@@ -20,7 +19,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        backgroundColor:  Color.fromARGB(255, 128, 33, 155),
+        backgroundColor: const Color.fromARGB(255, 128, 33, 155),
         elevation: 0,
         toolbarHeight: 0,
       ),
@@ -46,16 +45,31 @@ class HomePage extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Obx(() => Text(
-                        controller.isLoading.value
-                            ? "Loading..."
-                            : "Hello, ${controller.username.value}",
-                        style: const TextStyle(
+                  child: Obx(() {
+                    if (controller.isLoading.value) {
+                      return const Text(
+                        "Loading...",
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
-                      )),
+                      );
+                    }
+
+                    if (controller.username.value.isEmpty) {
+                      return const SizedBox(); // ❗ ไม่แสดงอะไรเลยถ้าไม่มีชื่อ
+                    }
+
+                    return Text(
+                      "Hello, ${controller.username.value}",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  }),
                 ),
 
                 SizedBox(height: screenHeight * 0.015),
@@ -107,5 +121,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-

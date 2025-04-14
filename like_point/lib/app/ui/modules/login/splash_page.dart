@@ -11,7 +11,7 @@ class SplashPage extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      Get.offAll(() => const HomeNavigation());
+      Get.offAll(() => HomeNavigation());
     } else {
       Get.offAll(() => const Login());
     }

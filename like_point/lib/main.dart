@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       home: const SplashPage(),
       getPages: [
         GetPage(name: '/login', page: () => const Login()),
-        GetPage(name: '/home', page: () => const HomeNavigation()),
+        GetPage(name: '/home', page: () => HomeNavigation()),
       ],
     );
   }
