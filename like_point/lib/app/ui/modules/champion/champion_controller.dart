@@ -3,11 +3,8 @@ import 'package:like_point/app/data/modle/model_champion.dart';
 import 'package:like_point/app/data/repositories/champion_repository.dart';
 
 class ChampionController extends GetxController {
-  final _champions = <ChampionModel>[].obs;
-  final _isLoading = false.obs;
-
-  List<ChampionModel> get champions => _champions;
-  bool get isLoading => _isLoading.value;
+  final champions = <ChampionModel>[].obs;
+  final isLoading = false.obs;
 
   final ChampionRepository _repository = ChampionRepository();
 
@@ -18,14 +15,14 @@ class ChampionController extends GetxController {
   }
 
   void fetchChampions() async {
-    _isLoading.value = true;
+    isLoading.value = true;
     try {
       final result = await _repository.fetchChampions();
-      _champions.assignAll(result);
+      champions.assignAll(result);
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch champions');
     } finally {
-      _isLoading.value = false;
+      isLoading.value = false;
     }
   }
 }

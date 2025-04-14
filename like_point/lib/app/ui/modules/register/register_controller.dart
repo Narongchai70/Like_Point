@@ -12,7 +12,7 @@ class RegisterController extends GetxController {
   RxBool isLoading = false.obs;
 
   Future<void> registerUser({
-    required String username,
+
     required String email,
     required String password,
   }) async {
@@ -24,7 +24,7 @@ class RegisterController extends GetxController {
 
       await _firestore.collection("users").doc(userCredential.user!.uid).set({
         "uid": userCredential.user!.uid,
-        "username": username,
+
         "email": email,
         "createdAt": FieldValue.serverTimestamp(),
       });

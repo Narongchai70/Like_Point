@@ -8,9 +8,9 @@ class NavController extends GetxController {
   var selectedIndex = 0.obs;
 
   final pages = [
-    () => const HomePage(),
-    () => const ChampionPage(),
-    () => const ProfilePage(),
-    () => const SettingsPage(),
+    () => HomePage(),
+    () => ChampionPage(),
+    () => ProfilePage(),
+    () => SettingsPage(),
   ];
 }

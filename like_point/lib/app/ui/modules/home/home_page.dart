@@ -1,48 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/widget/home/home_bottun_text_see_all.dart';
 import 'package:like_point/app/ui/widget/home/home_carouselview.dart';
 import 'package:like_point/app/ui/widget/home/home_dropdown.dart';
 import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+   HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String username = '';
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    loadUsername();
-  }
-
-  Future<void> loadUsername() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-
-    final doc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    if (doc.exists && doc.data() != null) {
-      setState(() {
-        username = doc.data()!['username'] ?? '';
-        isLoading = false;
-      });
-    }
-  }
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       extendBody: true,
+      appBar: AppBar(
+        backgroundColor:  Color.fromARGB(255, 128, 33, 155),
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
       body: Stack(
         children: [
           Container(
@@ -61,37 +42,43 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppBar(backgroundColor: Colors.transparent, elevation: 0),
+                SizedBox(height: screenHeight * 0.015),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    isLoading ? "Loading..." : "Hello, $username",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  child: Obx(() => Text(
+                        controller.isLoading.value
+                            ? "Loading..."
+                            : "Hello, ${controller.username.value}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )),
                 ),
 
-                const SizedBox(height: 10),
+                SizedBox(height: screenHeight * 0.015),
 
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: screenHeight * 0.01,
+                    ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
-                            HomeSearchTextFile(),
-                            const SizedBox(width: 10),
+                            Expanded(child: HomeSearchTextFile()),
+                            SizedBox(width: screenHeight * 0.015),
                             HomeSearchButton(onPressed: () {}),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        Row(children: [HomeDropdown()]),
-                        const SizedBox(height: 20),
+                        SizedBox(height: screenHeight * 0.025),
+                        HomeDropdown(),
+                        SizedBox(height: screenHeight * 0.025),
                         Row(
                           children: [
                             const Text(
@@ -106,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                             HomeBottunTextSeeAll(),
                           ],
                         ),
+                        SizedBox(height: screenHeight * 0.02),
                         HomeCarouselview(),
                       ],
                     ),
@@ -119,3 +107,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

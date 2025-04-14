@@ -15,12 +15,16 @@ class Register extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final TextEditingController userController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -32,12 +36,17 @@ class Register extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/icon/icon_app_home.png', height: 165),
+                SizedBox(height: screenHeight * 0.02),
+                Image.asset(
+                  'assets/icon/icon_app_home.png',
+                  height: screenHeight * 0.18,
+                ),
+                SizedBox(height: screenHeight * 0.02),
                 Text(
                   'Create Account',
                   style: GoogleFonts.inter(
@@ -60,82 +69,71 @@ class Register extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
-                CustomTextField(
-                  hintText: 'UserName',
-                  controller: userController,
-                  autoFocus:true
-                ),
-                const SizedBox(height: 15),
+                SizedBox(height: screenHeight * 0.03),
+          
                 CustomTextField(
                   hintText: 'Email Address',
                   controller: emailController,
-                  autoFocus:true
+                  autoFocus: true,
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
                   hintText: 'Password',
                   controller: passwordController,
                   isPassword: true,
-                  autoFocus:true
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
                   hintText: 'Confirm Password',
                   controller: confirmPasswordController,
                   isPassword: true,
-                  autoFocus:true
                 ),
-                const SizedBox(height: 40),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    RegisterButton(
-                      onPressed: () {
-                        final username = userController.text.trim();
-                        final email = emailController.text.trim();
-                        final password = passwordController.text.trim();
-                        final confirmPassword =
-                            confirmPasswordController.text.trim();
-
-                        if (username.isEmpty ||
-                            email.isEmpty ||
-                            password.isEmpty ||
-                            confirmPassword.isEmpty) {
-                          Get.snackbar("Error", "Please fill in all fields");
-                          return;
-                        }
-
-                        if (password != confirmPassword) {
-                          Get.snackbar("Error", "Passwords do not match");
-                          return;
-                        }
-
-                        registerController.registerUser(
-                          username: username,
-                          email: email,
-                          password: password,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 73),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Text(
-                        'Already have an account?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 19,
-                          color: Colors.black,
-                        ),
-                      ),
-                      LoginBottonText(),
-                    ],
+                SizedBox(height: screenHeight * 0.06),
+          
+                SizedBox(
+                  width: double.infinity,
+                  child: RegisterButton(
+                    onPressed: () {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text.trim();
+                      final confirmPassword =
+                          confirmPasswordController.text.trim();
+          
+                      if (email.isEmpty ||
+                          password.isEmpty ||
+                          confirmPassword.isEmpty) {
+                        Get.snackbar("Error", "Please fill in all fields");
+                        return;
+                      }
+          
+                      if (password != confirmPassword) {
+                        Get.snackbar("Error", "Passwords do not match");
+                        return;
+                      }
+          
+                      registerController.registerUser(
+                        email: email,
+                        password: password,
+                      );
+                    },
                   ),
+                ),
+          
+                SizedBox(height: screenHeight * 0.03),
+          
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    LoginBottonText(),
+                  ],
                 ),
               ],
             ),
