@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/ui/widget/home/home_search_controller.dart';
+import 'home_search_controller.dart';
 
 class HomeSearchTextFile extends StatelessWidget {
   HomeSearchTextFile({super.key});
@@ -12,9 +12,7 @@ class HomeSearchTextFile extends StatelessWidget {
     return Container(
       width: 280,
       decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Color.fromARGB(0, 0, 0, 25))
-        ],
+        boxShadow: [BoxShadow(color: Color.fromARGB(0, 0, 0, 25))],
       ),
       child: Obx(() {
         return TextField(
@@ -22,10 +20,11 @@ class HomeSearchTextFile extends StatelessWidget {
           focusNode: controller.focusNode,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: 'Search name#name',
-            prefixIcon: controller.isFocused.value
-                ? null
-                : const Icon(Icons.search, color: Colors.white),
+            hintText: 'Search Riot ID เช่น ZolikeLP#TH1',
+            prefixIcon:
+                controller.isFocused.value
+                    ? null
+                    : const Icon(Icons.search, color: Colors.white),
             hintStyle: const TextStyle(color: Colors.white),
             filled: true,
             fillColor: const Color.fromRGBO(217, 217, 217, 0.4),

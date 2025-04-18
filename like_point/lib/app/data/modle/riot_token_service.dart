@@ -5,7 +5,7 @@ class RiotTokenService {
 
   static Future<String?> getToken() async {
     try {
-      final doc = await _firestore.collection('config').doc('riot_token').get();
+      final doc = await _firestore.collection('token').doc('token').get();
 
       if (doc.exists) {
         return doc.data()?['token'] as String?;
