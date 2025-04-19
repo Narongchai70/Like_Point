@@ -12,11 +12,7 @@ class AccountProvider {
   String platformRegion,
 ) {
   final url =
-      'https://$platformRegion.api.riotgames.com/riot/account/v1/accounts/by-riot-id/$gameName/$tagLine';
-
-  print('🔴 Request URL: $url'); // เพิ่มตรงนี้
-  print('🔴 Token: $token'); // เช็ค Token ไปด้วย
-  
+      'https://$platformRegion.api.riotgames.com/riot/account/v1/accounts/by-riot-id/$gameName/$tagLine';  
   return _dio.get(
     url,
     options: Options(headers: {'X-Riot-Token': token}),

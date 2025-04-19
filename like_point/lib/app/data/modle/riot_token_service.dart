@@ -10,11 +10,9 @@ class RiotTokenService {
       if (doc.exists) {
         return doc.data()?['token'] as String?;
       } else {
-        print('riot_token document not found in Firestore');
         return null;
       }
     } catch (e) {
-      print('Failed to fetch Riot Token: $e');
       return null;
     }
   }

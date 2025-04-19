@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
+import 'package:like_point/app/ui/widget/theme/app_colors.dart';
+import 'package:like_point/app/ui/widget/theme/theme_controller.dart';
 import 'package:like_point/app/ui/widget/champion/champion_list_view.dart';
 import 'package:like_point/app/ui/widget/champion/champion_search_button.dart';
 import 'package:like_point/app/ui/widget/champion/champion_search_text_file.dart';
+import 'package:like_point/app/ui/modules/home/home_controller.dart';
 
-class ChampionPage extends StatefulWidget {
-  const ChampionPage({super.key});
+class ChampionPage extends StatelessWidget {
+  ChampionPage({super.key});
 
-  @override
-  State<ChampionPage> createState() => _ChampionPageState();
-}
+  final ThemeController themeController = Get.find();
+  final HomeController controller = Get.find();
 
-class _ChampionPageState extends State<ChampionPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(backgroundColor:Color.fromARGB(255, 128, 33, 155), ),
+    return Scaffold(
       extendBody: true,
+      appBar: CustomAppBar(
+        username: controller.username,
+        showBackButton: false,
+      ),
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromARGB(255, 128, 33, 155),
-                  Color.fromARGB(255, 212, 0, 249),
-                ],
-              ),
+            decoration: BoxDecoration(
+              gradient: AppColors.getBackgroundGradient(context),
             ),
           ),
           SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
+                 Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
                       Expanded(child: ChampionSearchTextFile()),
@@ -42,7 +41,6 @@ class _ChampionPageState extends State<ChampionPage> {
                     ],
                   ),
                 ),
-
                 Expanded(child: ChampionListView()),
               ],
             ),

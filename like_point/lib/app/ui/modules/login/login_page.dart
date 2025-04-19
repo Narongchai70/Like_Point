@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_point/app/ui/modules/login/login_controller.dart';
-import 'package:like_point/app/ui/widget/custom_text_file.dart';
+import 'package:like_point/app/ui/widget/home/custom_text_file.dart';
 
 import 'package:like_point/app/ui/widget/login/login_button.dart';
 import 'package:like_point/app/ui/widget/login/login_button_facebook.dart';

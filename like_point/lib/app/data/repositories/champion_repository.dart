@@ -19,7 +19,6 @@ class ChampionRepository {
           .map((champion) => ChampionModel.fromJson(champion, version))
           .toList();
     } catch (e) {
-      print('Error fetching champions: $e');
       rethrow;
     }
   }

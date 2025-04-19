@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
+import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/summoner_page.dart';
 import 'package:like_point/app/data/repositories/summoner_repository.dart';
-import 'package:like_point/app/data/providers/account_provider.dart';
-import 'package:like_point/app/data/providers/summoner_provider.dart';
-import 'package:like_point/app/data/providers/rank_provider.dart';
-import 'package:like_point/app/ui/widget/home/home_search_input_controller.dart';
-import 'package:like_point/app/ui/widget/home/home_dropdown_controller.dart';
+import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
+import 'package:like_point/app/ui/widget/home/controller/home_search_input_controller.dart';
+import 'package:like_point/app/ui/widget/home/controller/home_dropdown_controller.dart';
 
 class HomeSummonerSearchController extends GetxController {
   Future<void> searchSummoner(BuildContext context) async {
@@ -18,52 +16,56 @@ class HomeSummonerSearchController extends GetxController {
     final region = dropdownController.routing;
     final platform = dropdownController.platform;
 
-    // ✅ ตรวจสอบว่าเลือก server หรือยัง
     if (region == null) {
-      Get.snackbar(
-        'Server not selected',
-        'Please select a server before searching.',
-        snackPosition: SnackPosition.TOP,
+      showSnackBar(
+        title: 'Server not selected',
+        message: 'Please select a server before searching.',
         backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
+        icon: Icons.error_outline,
       );
       return;
     }
 
-    // ✅ ตรวจสอบรูปแบบ Riot ID
     final regex = RegExp(r'^[\w\d]+#[\w\d]+$');
     if (!regex.hasMatch(name)) {
-      Get.snackbar(
-        'Wrong format',
-        'Please enter Riot ID such as RiotGame#SG2',
-        snackPosition: SnackPosition.TOP,
+      showSnackBar(
+        title: 'Wrong format',
+        message: 'Please enter Riot ID such as RiotGame#SG2',
         backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
+        icon: Icons.warning_amber,
       );
       return;
     }
 
     FocusScope.of(context).unfocus();
 
-    final repository = SummonerRepository(
-      accountProvider: AccountProvider(Dio()),
-      summonerProvider: SummonerProvider(Dio()),
-      rankProvider: RankProvider(Dio()),
+    final repository = Get.find<SummonerRepository>();
+
+    final profile = await repository.fetchSummonerProfile(
+      name,
+      platform,
+      region,
     );
 
-    final profile = await repository.fetchSummonerProfile(name, platform, region!);
-
     if (profile == null) {
-      Get.snackbar(
-        'Player not found',
-        'Check your Riot ID name and try again.',
-        snackPosition: SnackPosition.TOP,
+      showSnackBar(
+        title: 'Player not found',
+        message: 'Check your Riot ID name and try again.',
         backgroundColor: Colors.orange,
-        colorText: Colors.white,
+        icon: Icons.person_off,
       );
       return;
     }
 
-    Get.to(() => SummonerPage(profile: profile));
+    Get.to(
+      () => SummonerPage(
+        riotId: name,
+        platform: platform,
+        region: region,
+      ),
+      binding: BindingsBuilder(() {
+        Get.put(SummonerController(repository: Get.find()));
+      }),
+    );
   }
 }

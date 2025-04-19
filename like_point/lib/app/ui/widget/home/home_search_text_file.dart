@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/ui/widget/home/home_search_input_controller.dart';
+import 'package:like_point/app/ui/widget/home/controller/home_search_input_controller.dart';
 
 class HomeSearchTextFile extends StatelessWidget {
   HomeSearchTextFile({super.key});

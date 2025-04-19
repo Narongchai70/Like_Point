@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_point/app/ui/modules/register/register_controller.dart';
-import 'package:like_point/app/ui/widget/custom_text_file.dart';
+import 'package:like_point/app/ui/widget/home/custom_text_file.dart';
 import 'package:like_point/app/ui/widget/register/login_botton_text.dart';
 import 'package:like_point/app/ui/widget/register/register_button.dart';
 

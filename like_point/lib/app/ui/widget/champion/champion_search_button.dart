@@ -32,7 +32,7 @@ class ChampionSearchButton extends StatelessWidget {
               elevation: 1,
             ),
             child: Text(
-              'ค้นหา',
+              'Search',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800),
             ),
           ),

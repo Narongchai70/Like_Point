@@ -6,7 +6,7 @@ class ChampionController extends GetxController {
   final champions = <ChampionModel>[].obs;
   final isLoading = false.obs;
 
-  final ChampionRepository _repository = ChampionRepository();
+  final ChampionRepository _repository = Get.find<ChampionRepository>();
 
   @override
   void onInit() {

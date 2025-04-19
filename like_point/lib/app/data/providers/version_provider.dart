@@ -15,7 +15,6 @@ class VersionProvider {
         throw Exception('Failed to fetch versions');
       }
     } catch (e) {
-      print('Error fetching version: $e');
       rethrow;
     }
   }

@@ -23,13 +23,11 @@ class SummonerRepository {
   ) async {
     final token = await RiotTokenService.getToken();
     if (token == null) {
-      print('❌ ไม่มี token');
       return null;
     }
 
     final parts = riotId.split('#');
     if (parts.length != 2) {
-      print('❌ Riot ID ผิดรูปแบบ');
       return null;
     }
 
@@ -51,7 +49,6 @@ class SummonerRepository {
         region,
       );
       final summoner = summonerRes.data;
-      final summonerId = summoner['id'];
       final level = summoner['summonerLevel'];
       final profileIconId = summoner['profileIconId'];
       final name = summoner['name'] as String? ?? gameName;
@@ -81,7 +78,6 @@ class SummonerRepository {
         ranks: ranks,
       );
     } catch (e) {
-      print('❌ ERROR (repository): $e');
       return null;
     }
   }
