@@ -47,6 +47,7 @@ flutter:
   assets:
      - assets/icon/
      - assets/rank/
+     - assets/role/
      
 
 flutter_launcher_icons:

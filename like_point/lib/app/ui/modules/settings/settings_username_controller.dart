@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 
 class SettingsUsernameController extends GetxController {
   final RxString username = ''.obs;
@@ -35,12 +37,22 @@ class SettingsUsernameController extends GetxController {
     final trimmed = newUsername.trim();
 
     if (uid == null || trimmed.isEmpty) {
-      Get.snackbar("Error", "Username cannot be empty");
+      showSnackBar(
+        title: "Error",
+        message: "Username cannot be empty",
+        backgroundColor: Colors.red[600]!,
+        icon: Icons.error_outline,
+      );
       return;
     }
 
     if (trimmed.length > 20) {
-      Get.snackbar("Error", "Username must not exceed 20 characters");
+      showSnackBar(
+        title: "Error",
+        message: "Username must not exceed 20 characters",
+        backgroundColor: Colors.orange[700]!,
+        icon: Icons.warning_amber_outlined,
+      );
       return;
     }
 
@@ -50,6 +62,12 @@ class SettingsUsernameController extends GetxController {
     isEditing.value = false;
 
     homeController.updateUsernameLocally(trimmed);
-    Get.snackbar("Success", "Username updated!");
+
+    showSnackBar(
+      title: "Success",
+      message: "Username updated!",
+      backgroundColor: Colors.green[600]!,
+      icon: Icons.check_circle_outline,
+    );
   }
 }

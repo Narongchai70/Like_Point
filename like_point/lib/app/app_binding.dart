@@ -5,6 +5,7 @@ import 'package:like_point/app/data/providers/rank_provider.dart';
 import 'package:like_point/app/data/providers/summoner_provider.dart';
 import 'package:like_point/app/data/repositories/champion_repository.dart';
 import 'package:like_point/app/data/repositories/summoner_repository.dart';
+import 'package:like_point/app/ui/modules/champion/champion_controller.dart';
 import 'package:like_point/app/ui/modules/login/login_controller.dart'; 
 
 class AppBinding extends Bindings {
@@ -26,5 +27,6 @@ class AppBinding extends Bindings {
 
     // Controller (ที่ใช้ทั้งแอป เช่น Login)
     Get.lazyPut(() => LoginController());
+      Get.lazyPut(() => ChampionController(Get.find()));
   }
 }

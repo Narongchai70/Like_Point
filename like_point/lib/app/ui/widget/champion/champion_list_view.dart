@@ -8,7 +8,7 @@ class ChampionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ChampionController());
+    final controller = Get.find<ChampionController>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -19,7 +19,7 @@ class ChampionListView extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       }
 
-      if (controller.champions.isEmpty) {
+      if (controller.filteredChampions.isEmpty) {
         return const Center(
           child: Text(
             "No champions available",
@@ -34,7 +34,7 @@ class ChampionListView extends StatelessWidget {
           vertical: screenHeight * 0.02,
         ),
         child: GridView.builder(
-          itemCount: controller.champions.length,
+          itemCount: controller.filteredChampions.length,
           physics: const BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
@@ -43,11 +43,11 @@ class ChampionListView extends StatelessWidget {
             childAspectRatio: 0.8,
           ),
           itemBuilder: (context, index) {
-            final champion = controller.champions[index];
+            final champion = controller.filteredChampions[index];
 
             return InkWell(
               onTap: () {
-                Get.to(() => ChampionData(title: champion.name));
+               Get.to(() => ChampionData(championId: champion.id));
               },
               child: Column(
                 children: [

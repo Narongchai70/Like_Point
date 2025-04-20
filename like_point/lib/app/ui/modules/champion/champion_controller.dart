@@ -3,26 +3,39 @@ import 'package:like_point/app/data/modle/model_champion.dart';
 import 'package:like_point/app/data/repositories/champion_repository.dart';
 
 class ChampionController extends GetxController {
-  final champions = <ChampionModel>[].obs;
-  final isLoading = false.obs;
+  final ChampionRepository repository;
 
-  final ChampionRepository _repository = Get.find<ChampionRepository>();
+  ChampionController(this.repository);
+
+  var isLoading = false.obs;
+  var champions = <ChampionModel>[].obs;
+  var filteredChampions = <ChampionModel>[].obs;
+  var searchText = ''.obs;
 
   @override
   void onInit() {
-    fetchChampions();
     super.onInit();
+    fetchChampions();
+    ever(searchText, (_) => _filterChampions());
   }
 
-  void fetchChampions() async {
-    isLoading.value = true;
+  Future<void> fetchChampions() async {
     try {
-      final result = await _repository.fetchChampions();
-      champions.assignAll(result);
+      isLoading.value = true;
+      final result = await repository.fetchChampions();
+      champions.value = result;
+      filteredChampions.value = result;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch champions');
+      print("Error fetching champions: $e");
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void _filterChampions() {
+    final query = searchText.value.toLowerCase();
+    filteredChampions.value = champions
+        .where((c) => c.name.toLowerCase().contains(query))
+        .toList();
   }
 }

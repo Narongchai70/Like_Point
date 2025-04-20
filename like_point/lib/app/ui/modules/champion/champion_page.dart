@@ -7,12 +7,14 @@ import 'package:like_point/app/ui/widget/champion/champion_list_view.dart';
 import 'package:like_point/app/ui/widget/champion/champion_search_button.dart';
 import 'package:like_point/app/ui/widget/champion/champion_search_text_file.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:like_point/app/ui/modules/champion/champion_controller.dart';
 
 class ChampionPage extends StatelessWidget {
   ChampionPage({super.key});
 
   final ThemeController themeController = Get.find();
   final HomeController controller = Get.find();
+  final ChampionController champController = Get.find(); 
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +34,22 @@ class ChampionPage extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                 Padding(padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     children: [
-                      Expanded(child: ChampionSearchTextFile()),
+                      Expanded(
+                        child: ChampionSearchTextFile(
+                          onChanged: (value) =>
+                              champController.searchText.value = value,
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       ChampionSearchButton(onPressed: () {}),
                     ],
                   ),
                 ),
-                Expanded(child: ChampionListView()),
+                const Expanded(child: ChampionListView()),
               ],
             ),
           ),
