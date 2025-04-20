@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
 
-class SummonerProvider {
+class RankProvider {
   final Dio _dio;
 
-  SummonerProvider(this._dio);
+  RankProvider(this._dio);
 
-  Future<Response> fetchSummonerByPuuid(
+  Future<Response> fetchRanksByPuuid(
     String puuid,
     String token,
     String region,
   ) {
     return _dio.get(
-      'https://$region.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/$puuid',
+      'https://$region.api.riotgames.com/lol/league/v4/entries/by-puuid/$puuid',
       options: Options(headers: {'X-Riot-Token': token}),
     );
   }

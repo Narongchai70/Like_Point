@@ -1,0 +1,58 @@
+// widgets/champion_skin_list.dart
+import 'package:flutter/material.dart';
+import 'package:like_point/app/data/modle/campion_detail_model.dart';
+
+class ChampionSkinList extends StatelessWidget {
+  final List<Skin> skins;
+
+  const ChampionSkinList({super.key, required this.skins});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Available Skins',
+          style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 180,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: skins.length,
+            itemBuilder: (context, index) {
+              final skin = skins[index];
+              return Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      skin.imageUrl,
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  SizedBox(
+                    width: 120,
+                    child: Text(
+                      skin.name,
+                      style: const TextStyle(color: Colors.white),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(width: 12),
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,65 +1,100 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/data/modle/summoner_profile.dart';
-import 'package:like_point/app/data/providers/summoner_provider.dart';
+import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
+import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
+import 'package:like_point/app/ui/widget/theme/app_colors.dart';
+import 'package:like_point/app/ui/widget/summoner/summoner_header.dart';
+import 'package:like_point/app/ui/widget/summoner/summoner_rank_card.dart';
+import 'package:like_point/app/ui/widget/summoner/summonner_unranked_card.dart';
 
 class SummonerPage extends StatelessWidget {
   final String riotId;
+  final String platform;
+  final String region;
 
-  const SummonerPage({super.key, required this.riotId});
+  const SummonerPage({
+    super.key,
+    required this.riotId,
+    required this.platform,
+    required this.region,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SummonerProfile?>(
-      future: SummonerProvider.fetchSummonerByRiotId(riotId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
+    final controller = Get.find<SummonerController>();
+    final homeController = Get.find<HomeController>();
 
-        final profile = snapshot.data;
-        if (profile == null) {
-          return Scaffold(
-            appBar: AppBar(title: const Text("Player not found")),
-            body: const Center(child: Text("ไม่พบข้อมูลผู้เล่น")),
-          );
-        }
+    controller.loadProfile(riotId: riotId, platform: platform, region: region);
 
-        return Scaffold(
-          appBar: AppBar(title: Text(profile.name)),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(profile.profileIconUrl),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Level ${profile.level}",
-                  style: const TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "แรงค์",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                ...profile.ranks.map(
-                  (rank) => ListTile(
-                    title: Text(rank.queueType),
-                    subtitle: Text("${rank.tier} ${rank.rank} - ${rank.lp} LP"),
-                    trailing: Text("${rank.winRate.toStringAsFixed(1)}%"),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      extendBody: true,
+      appBar: CustomAppBar(
+        username: homeController.username,
+        showBackButton: true, 
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: AppColors.getBackgroundGradient(context),
             ),
           ),
-        );
-      },
+          Obx(() {
+            if (controller.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final profile = controller.profile.value;
+            if (profile == null) {
+              return const Center(
+                child: Text(
+                  "Player not found.",
+                  style: TextStyle(color: AppColors.textLight),
+                ),
+              );
+            }
+
+            final sortedRanks = profile.ranks.toList();
+            sortedRanks.sort((a, b) {
+              if (a.queueType == "RANKED_SOLO_5x5" &&
+                  b.queueType != "RANKED_SOLO_5x5") return -1;
+              if (a.queueType != "RANKED_SOLO_5x5" &&
+                  b.queueType == "RANKED_SOLO_5x5") return 1;
+              return 0;
+            });
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SummonerHeader(profile: profile),
+                  const SizedBox(height: 24),
+
+                  const Text(
+                    "Personal Ratings",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textLight,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+
+                  sortedRanks.isEmpty
+                      ? const UnrankedRankCard()
+                      : Column(
+                          children: sortedRanks
+                              .map((rank) => SummonerRankCard(rank: rank))
+                              .toList(),
+                        ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
     );
   }
 }

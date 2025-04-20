@@ -3,7 +3,11 @@ class ChampionModel {
   final String name;
   final String imageUrl;
 
-  ChampionModel({required this.id, required this.name, required this.imageUrl});
+  ChampionModel({
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+  });
 
   factory ChampionModel.fromJson(Map<String, dynamic> json, String version) {
     return ChampionModel(

@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
+import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfilePage extends StatelessWidget {
+  ProfilePage({super.key});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
+  final HomeController controller = Get.find();
 
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 128, 33, 155)),
       extendBody: true,
+      appBar: CustomAppBar(
+        username: controller.username,
+        showBackButton: false, 
+      ),
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color.fromARGB(255, 128, 33, 155),
-                  Color.fromARGB(255, 212, 0, 249),
-                ],
-              ),
+            decoration: BoxDecoration(
+              gradient: AppColors.getBackgroundGradient(context), 
             ),
           ),
         ],

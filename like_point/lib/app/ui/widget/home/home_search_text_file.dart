@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'home_search_controller.dart';
+import 'package:like_point/app/ui/widget/home/controller/home_search_input_controller.dart';
 
 class HomeSearchTextFile extends StatelessWidget {
   HomeSearchTextFile({super.key});
 
-  final HomeSearchController controller = Get.put(HomeSearchController());
+ final HomeSearchInputController controller = Get.find<HomeSearchInputController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class HomeSearchTextFile extends StatelessWidget {
           focusNode: controller.focusNode,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: 'Search Riot ID เช่น ZolikeLP#TH1',
+            hintText: 'Search Riot ID such as RiotGame#SG2',
             prefixIcon:
                 controller.isFocused.value
                     ? null
