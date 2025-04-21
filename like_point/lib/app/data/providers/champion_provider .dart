@@ -1,12 +1,13 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 
-class ChampionProvider extends GetConnect {
-  @override
-  void onInit() {
-    httpClient.baseUrl =
-        'https://ddragon.leagueoflegends.com/cdn/15.7.1/data/en_US';
-    super.onInit();
+class ChampionProvider {
+  final Dio _dio;
+
+  ChampionProvider(this._dio);
+
+  Future<Map<String, dynamic>> getAllChampions(String version) async {
+    final url = 'https://ddragon.leagueoflegends.com/cdn/$version/data/en_US/champion.json';
+    final response = await _dio.get(url);
+    return response.data['data']; 
   }
-
-  Future<Response> getAllChampions() => get('/champion.json');
 }

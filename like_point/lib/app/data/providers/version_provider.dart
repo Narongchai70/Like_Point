@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 
 class VersionProvider {
-  final Dio _dio = Dio();
+  final Dio _dio;
+
+  VersionProvider(this._dio);
 
   Future<String> fetchLatestVersion() async {
     try {

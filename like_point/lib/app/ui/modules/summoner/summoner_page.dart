@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
+import 'package:like_point/app/ui/widget/summoner/match_history_card.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_header.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_rank_card.dart';
@@ -31,7 +33,7 @@ class SummonerPage extends StatelessWidget {
       extendBody: true,
       appBar: CustomAppBar(
         username: homeController.username,
-        showBackButton: true, 
+        showBackButton: true,
       ),
       body: Stack(
         children: [
@@ -58,9 +60,11 @@ class SummonerPage extends StatelessWidget {
             final sortedRanks = profile.ranks.toList();
             sortedRanks.sort((a, b) {
               if (a.queueType == "RANKED_SOLO_5x5" &&
-                  b.queueType != "RANKED_SOLO_5x5") return -1;
+                  b.queueType != "RANKED_SOLO_5x5")
+                return -1;
               if (a.queueType != "RANKED_SOLO_5x5" &&
-                  b.queueType == "RANKED_SOLO_5x5") return 1;
+                  b.queueType == "RANKED_SOLO_5x5")
+                return 1;
               return 0;
             });
 
@@ -85,14 +89,55 @@ class SummonerPage extends StatelessWidget {
                   sortedRanks.isEmpty
                       ? const UnrankedRankCard()
                       : Column(
-                          children: sortedRanks
-                              .map((rank) => SummonerRankCard(rank: rank))
-                              .toList(),
-                        ),
-                ],
-              ),
+                        children:
+                            sortedRanks
+                                .map((rank) => SummonerRankCard(rank: rank))
+                                .toList(),
+                      ),
+                       const SizedBox(height: 24),
+
+          const Text(
+            "Match History",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textLight,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          const Text(
+            "Recent Matches",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textLight,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          Obx(() {
+            final matches = Get.find<MatchHistoryController>().matchList;
+            if (matches.isEmpty) {
+              return const Text(
+                "No match history available.",
+                style: TextStyle(color: AppColors.textLight),
+              );
+            }
+
+            return Column(
+              children:
+                  matches
+                      .map((match) => MatchHistoryCard(match: match))
+                      .toList(),
             );
           }),
+                ],
+              ),
+              
+            );
+          }),
+         
         ],
       ),
     );

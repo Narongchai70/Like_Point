@@ -35,7 +35,7 @@ class ChampionSkillTile extends StatelessWidget {
                   style: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              Text(description, style: const TextStyle(color: Colors.white70)),
+              Text(description, style: const TextStyle(color: Colors.white)),
             ],
           ),
         ),

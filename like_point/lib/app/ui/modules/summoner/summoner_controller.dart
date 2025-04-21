@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:like_point/app/data/modle/summoner_profile.dart';
 import 'package:like_point/app/data/repositories/summoner_repository.dart';
+import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
 
 class SummonerController extends GetxController {
   final SummonerRepository repository;
@@ -21,6 +22,11 @@ class SummonerController extends GetxController {
     final result = await repository.fetchSummonerProfile(riotId, platform, region);
     if (result != null) {
       profile.value = result;
+
+      final matchController = Get.find<MatchHistoryController>();
+      await matchController.loadMatchHistory(
+        puuid: result.puuid,
+      );
     }
 
     isLoading.value = false;
