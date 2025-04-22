@@ -4,8 +4,13 @@ import 'package:like_point/app/data/providers/champion_detail_provider.dart';
 import 'package:like_point/app/data/providers/version_provider.dart';
 
 class ChampionDetailController extends GetxController {
-  final ChampionDetailProvider provider = ChampionDetailProvider();
-  final VersionProvider versionProvider = VersionProvider();
+  final ChampionDetailProvider provider;
+  final VersionProvider versionProvider;
+
+  ChampionDetailController({
+    required this.provider,
+    required this.versionProvider,
+  });
 
   var isLoading = false.obs;
   var detail = Rxn<ChampionDetailModel>();

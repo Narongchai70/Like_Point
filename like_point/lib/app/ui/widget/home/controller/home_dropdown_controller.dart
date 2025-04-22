@@ -27,6 +27,24 @@ class HomeDropdownController extends GetxController {
     'vn2': 'asia',
   };
 
+  final Map<String, String> regionalRoutingMap = {
+    'br1': 'americas',
+    'eun1': 'europe',
+    'euw1': 'europe',
+    'jp1': 'asia',
+    'kr': 'asia',
+    'la1': 'americas',
+    'la2': 'americas',
+    'me1': 'europe',
+    'na1': 'americas',
+    'oc1': 'sea',
+    'ru': 'europe',
+    'sg2': 'sea', 
+    'tr1': 'europe',
+    'tw2': 'asia',
+    'vn2': 'asia',
+  };
+
   void selectItem(String? value) {
     if (value != null && serverList.contains(value)) {
       selectedItem.value = value;
@@ -34,5 +52,7 @@ class HomeDropdownController extends GetxController {
   }
 
   String? get routing => selectedItem.value;
+
   String get platform => regionPlatformMap[selectedItem.value ?? ''] ?? 'sea';
+  String get regionalRouting => regionalRoutingMap[selectedItem.value ?? ''] ?? 'sea';
 }

@@ -76,6 +76,7 @@ class SummonerRepository {
         level: level,
         profileIconUrl: profileIconUrl,
         ranks: ranks,
+        puuid: puuid
       );
     } catch (e) {
       return null;

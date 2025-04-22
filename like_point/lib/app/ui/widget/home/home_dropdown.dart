@@ -56,11 +56,18 @@ class HomeDropdown extends StatelessWidget {
             ),
           ),
           dropdownMenuEntries: controller.serverList
-              .map((e) => DropdownMenuEntry<String>(
-                    value: e,
-                    label: e.toUpperCase(), 
-                  ))
-              .toList(),
+  .map((e) => DropdownMenuEntry<String>(
+        value: e,
+        label: e.toUpperCase(), 
+        labelWidget: Text(
+          e.toUpperCase(),
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ))
+  .toList(),
         );
       }),
     );

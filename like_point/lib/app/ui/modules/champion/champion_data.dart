@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_point/app/ui/modules/champion/champion_detail_controller.dart';
-
-import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
+import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
 import 'package:like_point/app/ui/widget/champion/champion_role_and_difficulty.dart';
 import 'package:like_point/app/ui/widget/champion/champion_skill_tile.dart';
 import 'package:like_point/app/ui/widget/champion/champion_skin_list.dart';
@@ -19,9 +18,7 @@ class ChampionData extends StatefulWidget {
 
 class _ChampionDataState extends State<ChampionData> {
   final HomeController homeController = Get.find();
-  final ChampionDetailController detailController = Get.put(
-    ChampionDetailController(),
-  );
+  final ChampionDetailController detailController = Get.find(); 
 
   @override
   void initState() {
@@ -46,77 +43,68 @@ class _ChampionDataState extends State<ChampionData> {
               ),
             ),
             Obx(() {
-              if (detailController.isLoading.value ||
-                  detailController.detail.value == null) {
+              if (detailController.isLoading.value || detailController.detail.value == null) {
                 return const Center(child: CircularProgressIndicator());
               }
-        
+
               final champion = detailController.detail.value!;
-        
-              return SafeArea(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.04,
-                    vertical: screenHeight * 0.02,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Text(
-                          '${champion.title} ${champion.name}',
-                          style: TextStyle(
-                            fontSize: screenWidth * 0.06,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
+
+              return SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.04,
+                  vertical: screenHeight * 0.02,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        '${champion.title} ${champion.name}',
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.06,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-        
-                      SizedBox(height: screenHeight * 0.02),
-        
-                      // รูป + Role Difficulty
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              champion.fullImageUrl,
-                              width: screenWidth * 0.55,
-                              height: screenWidth * 0.55,
-                              fit: BoxFit.fill,
-                            ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            champion.fullImageUrl,
+                            width: screenWidth * 0.55,
+                            height: screenWidth * 0.55,
+                            fit: BoxFit.fill,
                           ),
-                          SizedBox(width: screenWidth * 0.1),
-                          ChampionRoleAndDifficulty(
+                        ),
+                        SizedBox(width: screenWidth * 0.05),
+                        Expanded(
+                          child: ChampionRoleAndDifficulty(
                             role: champion.tags.first,
                             difficulty: champion.difficulty,
                           ),
-                        ],
-                      ),
-                      SizedBox(height: screenHeight * 0.04),
-                      ChampionSkillTile(
-                        image: champion.passiveImageUrl,
-                        title: 'PASSIVE: ${champion.passiveName}',
-                        description: champion.passiveDescription,
-                      ),
-                      SizedBox(height: screenHeight * 0.02),
-                      ...champion.spells.map(
-                        (skill) => Padding(
-                          padding: EdgeInsets.only(bottom: screenHeight * 0.015),
-                          child: ChampionSkillTile(
-                            image: skill.imageUrl,
-                            title: skill.name,
-                            description: skill.description,
-                          ),
                         ),
-                      ),
-                      // ✅ Skins
-                      ChampionSkinList(skins: champion.skins),
-                    ],
-                  ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    ChampionSkillTile(
+                      image: champion.passiveImageUrl,
+                      title: 'PASSIVE: ${champion.passiveName}',
+                      description: champion.passiveDescription,
+                    ),
+                    const SizedBox(height: 12),
+                    ...champion.spells.map((skill) => ChampionSkillTile(
+                          image: skill.imageUrl,
+                          title: skill.name,
+                          description: skill.description,
+                        )),
+                    const SizedBox(height: 20),
+                    ChampionSkinList(skins: champion.skins),
+                  ],
                 ),
               );
             }),

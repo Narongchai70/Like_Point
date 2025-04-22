@@ -1,4 +1,3 @@
-// widgets/champion_skin_list.dart
 import 'package:flutter/material.dart';
 import 'package:like_point/app/data/modle/campion_detail_model.dart';
 
@@ -32,7 +31,7 @@ class ChampionSkinList extends StatelessWidget {
                       skin.imageUrl,
                       width: 120,
                       height: 120,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   const SizedBox(height: 6),
