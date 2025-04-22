@@ -12,6 +12,7 @@ class MatchInfo {
   final double killParticipation;
   final String queueType;
   final String playedAgo;
+  final String gameDuration;
 
   MatchInfo({
     required this.result,
@@ -27,5 +28,6 @@ class MatchInfo {
     required this.killParticipation,
     required this.queueType,
     required this.playedAgo,
+    required this.gameDuration,
   });
 }

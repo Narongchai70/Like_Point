@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_point/app/ui/modules/login/login_controller.dart';
+import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 import 'package:like_point/app/ui/widget/home/custom_text_file.dart';
 
 import 'package:like_point/app/ui/widget/login/login_button.dart';
@@ -72,7 +73,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.03),
-          
+
                 CustomTextField(
                   hintText: 'Email Address',
                   controller: emailController,
@@ -85,7 +86,7 @@ class _LoginState extends State<Login> {
                   isPassword: true,
                 ),
                 SizedBox(height: screenHeight * 0.03),
-          
+
                 SizedBox(
                   width: double.infinity,
                   child: LoginButton(
@@ -93,9 +94,11 @@ class _LoginState extends State<Login> {
                       final email = emailController.text.trim();
                       final password = passwordController.text.trim();
                       if (email.isEmpty || password.isEmpty) {
-                        Get.snackbar(
-                          "Warning",
-                          "Please fill in both email and password.",
+                        showSnackBar(
+                          title: "Warning",
+                          message: "Please fill in both email and password.",
+                          backgroundColor: Colors.red.shade700,
+                          icon: Icons.warning_amber_rounded,
                         );
                         return;
                       }
@@ -103,9 +106,9 @@ class _LoginState extends State<Login> {
                     },
                   ),
                 ),
-          
+
                 SizedBox(height: screenHeight * 0.02),
-          
+
                 Row(
                   children: [
                     const Expanded(
@@ -130,7 +133,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 const SizedBox(height: 15),
-          
+
                 Row(
                   children: [
                     Expanded(child: LoginButtonGoogle(onPressed: () {})),
@@ -138,9 +141,9 @@ class _LoginState extends State<Login> {
                     Expanded(child: LoginButtonFacebook(onPressed: () {})),
                   ],
                 ),
-          
+
                 SizedBox(height: screenHeight * 0.01),
-          
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

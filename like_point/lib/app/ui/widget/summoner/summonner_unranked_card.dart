@@ -5,13 +5,14 @@ class UnrankedRankCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 155, 51, 194),
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white70),
+        border: Border.all(color: Colors.white),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,20 +21,18 @@ class UnrankedRankCard extends StatelessWidget {
             "assets/rank/Rank=Unranked.png",
             width: 60,
             height: 60,
-            errorBuilder: (context, error, stackTrace) => const Icon(
-              Icons.help_outline,
-              color: Colors.white,
-              size: 48,
-            ),
+            errorBuilder:
+                (context, error, stackTrace) => const Icon(
+                  Icons.help_outline,
+                  color: Colors.white,
+                  size: 48,
+                ),
           ),
           const SizedBox(width: 16),
           const Expanded(
             child: Text(
               "No rank information yet.\n(Players may not be playing ranked this season.)",
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
         ],

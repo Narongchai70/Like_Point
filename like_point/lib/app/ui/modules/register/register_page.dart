@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_point/app/ui/modules/register/register_controller.dart';
+import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 import 'package:like_point/app/ui/widget/home/custom_text_file.dart';
 import 'package:like_point/app/ui/widget/register/login_botton_text.dart';
 import 'package:like_point/app/ui/widget/register/register_button.dart';
@@ -70,7 +71,7 @@ class Register extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.03),
-          
+
                 CustomTextField(
                   hintText: 'Email Address',
                   controller: emailController,
@@ -89,7 +90,7 @@ class Register extends StatelessWidget {
                   isPassword: true,
                 ),
                 SizedBox(height: screenHeight * 0.06),
-          
+
                 SizedBox(
                   width: double.infinity,
                   child: RegisterButton(
@@ -98,19 +99,29 @@ class Register extends StatelessWidget {
                       final password = passwordController.text.trim();
                       final confirmPassword =
                           confirmPasswordController.text.trim();
-          
+
                       if (email.isEmpty ||
                           password.isEmpty ||
                           confirmPassword.isEmpty) {
-                        Get.snackbar("Error", "Please fill in all fields");
+                        showSnackBar(
+                          title: "Error",
+                          message: "Please fill in all fields",
+                          backgroundColor: Colors.red.shade700,
+                          icon: Icons.warning_amber_rounded,
+                        );
                         return;
                       }
-          
+
                       if (password != confirmPassword) {
-                        Get.snackbar("Error", "Passwords do not match");
+                        showSnackBar(
+                          title: "Error",
+                          message: "Passwords do not match",
+                          backgroundColor: Colors.orange.shade800,
+                          icon: Icons.lock_person_rounded,
+                        );
                         return;
                       }
-          
+
                       registerController.registerUser(
                         email: email,
                         password: password,
@@ -118,9 +129,9 @@ class Register extends StatelessWidget {
                     },
                   ),
                 ),
-          
+
                 SizedBox(height: screenHeight * 0.03),
-          
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

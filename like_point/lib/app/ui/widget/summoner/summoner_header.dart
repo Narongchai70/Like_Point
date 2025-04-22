@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:like_point/app/data/modle/summoner_profile.dart';
+import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 
 class SummonerHeader extends StatelessWidget {
   final SummonerProfile profile;
@@ -11,9 +12,9 @@ class SummonerHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 155, 51, 194),
+        color: AppColors.getCardColor(context),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white70, width: 1),
+        border: Border.all(color: Colors.white, width: 1),
       ),
       child: Row(
         children: [
@@ -34,17 +35,14 @@ class SummonerHeader extends StatelessWidget {
                 Text(
                   profile.name,
                   style: const TextStyle(
-                    fontSize: 16,
                     fontWeight: FontWeight.bold,
+                    fontSize: 16,
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   'Level ${profile.level}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white70,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: Colors.white70),
                 ),
               ],
             ),

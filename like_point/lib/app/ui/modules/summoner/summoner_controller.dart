@@ -11,6 +11,7 @@ class SummonerController extends GetxController {
   var isLoading = true.obs;
   var profile = Rxn<SummonerProfile>();
   var isFollowing = false.obs;
+  final puuid = ''.obs;
 
   Future<void> loadProfile({
     required String riotId,
@@ -19,14 +20,18 @@ class SummonerController extends GetxController {
   }) async {
     isLoading.value = true;
 
-    final result = await repository.fetchSummonerProfile(riotId, platform, region);
+    final result = await repository.fetchSummonerProfile(
+      riotId,
+      platform,
+      region,
+    );
     if (result != null) {
       profile.value = result;
 
+      puuid.value = result.puuid;
+
       final matchController = Get.find<MatchHistoryController>();
-      await matchController.loadMatchHistory(
-        puuid: result.puuid,
-      );
+      await matchController.loadMatchHistory(puuid: result.puuid);
     }
 
     isLoading.value = false;

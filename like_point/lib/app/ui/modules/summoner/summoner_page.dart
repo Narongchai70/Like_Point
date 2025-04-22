@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
+import 'package:like_point/app/ui/modules/summoner/match_history_page%20.dart';
 import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
-import 'package:like_point/app/ui/widget/summoner/match_history_card.dart';
+import 'package:like_point/app/ui/widget/match/match_history_card.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_header.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_rank_card.dart';
@@ -27,7 +28,16 @@ class SummonerPage extends StatelessWidget {
     final controller = Get.find<SummonerController>();
     final homeController = Get.find<HomeController>();
 
-    controller.loadProfile(riotId: riotId, platform: platform, region: region);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller
+          .loadProfile(riotId: riotId, platform: platform, region: region)
+          .then((_) {
+            final puuid = controller.puuid.value;
+            if (puuid.isNotEmpty) {
+              Get.find<MatchHistoryController>().loadMatchHistory(puuid: puuid);
+            }
+          });
+    });
 
     return Scaffold(
       extendBody: true,
@@ -94,50 +104,71 @@ class SummonerPage extends StatelessWidget {
                                 .map((rank) => SummonerRankCard(rank: rank))
                                 .toList(),
                       ),
-                       const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-          const Text(
-            "Match History",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textLight,
-            ),
-          ),
-          const SizedBox(height: 24),
+                  const Text(
+                    "Match History",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textLight,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
 
-          const Text(
-            "Recent Matches",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textLight,
-            ),
-          ),
-          const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Recent Matches",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textLight,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          final puuid = controller.puuid.value;
+                          if (puuid.isNotEmpty) {
+                            Get.to(() => MatchHistoryPage(puuid: puuid));
+                          }
+                        },
+                        child: const Text(
+                          "View All",
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
 
-          Obx(() {
-            final matches = Get.find<MatchHistoryController>().matchList;
-            if (matches.isEmpty) {
-              return const Text(
-                "No match history available.",
-                style: TextStyle(color: AppColors.textLight),
-              );
-            }
+                  const SizedBox(height: 12),
 
-            return Column(
-              children:
-                  matches
-                      .map((match) => MatchHistoryCard(match: match))
-                      .toList(),
-            );
-          }),
+                  Obx(() {
+                    final matches =
+                        Get.find<MatchHistoryController>().matchList;
+                    if (matches.isEmpty) {
+                      return const Text(
+                        "No match history available.",
+                        style: TextStyle(color: AppColors.textLight),
+                      );
+                    }
+
+                    return Column(
+                      children:
+                          matches
+                              .take(5)
+                              .map((match) => MatchHistoryCard(match: match))
+                              .toList(),
+                    );
+                  }),
                 ],
               ),
-              
             );
           }),
-         
         ],
       ),
     );

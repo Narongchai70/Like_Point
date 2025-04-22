@@ -30,7 +30,6 @@ class AppBinding extends Bindings {
     Get.lazyPut(() => ChampionProvider(Get.find()));
     Get.lazyPut(() => VersionProvider(Get.find()));
     Get.lazyPut(() => ChampionDetailProvider());
-    
 
     // Repositories
     Get.lazyPut(

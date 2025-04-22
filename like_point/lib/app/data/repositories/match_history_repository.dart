@@ -5,6 +5,12 @@ class MatchHistoryRepository {
   final MatchHistoryProvider matchProvider;
 
   MatchHistoryRepository({required this.matchProvider});
+  String _formatDuration(int durationSeconds) {
+    final duration = Duration(seconds: durationSeconds);
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds.remainder(60);
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
 
   Future<List<String>> fetchMatchIds({
     required String puuid,
@@ -53,7 +59,7 @@ class MatchHistoryRepository {
         playerData['perks']['styles'][0]['selections'][0]['perk'].toString(),
         playerData['perks']['styles'][1]['style'].toString(),
       ],
-      items: List.generate(6, (i) => playerData['item\$i'].toString()),
+      items: List.generate(6, (i) => playerData['item$i'].toString()),
       kills: playerData['kills'],
       deaths: playerData['deaths'],
       assists: playerData['assists'],
@@ -63,6 +69,7 @@ class MatchHistoryRepository {
           DateTime.fromMillisecondsSinceEpoch(
             info['gameStartTimestamp'],
           ).toLocal().toString(),
+      gameDuration: _formatDuration(info['gameDuration']),
     );
   }
 }
