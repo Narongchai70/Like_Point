@@ -7,7 +7,6 @@ import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 
 class SettingsUsernameController extends GetxController {
   final RxString username = ''.obs;
-  final RxBool isEditing = false.obs;
 
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
@@ -19,8 +18,6 @@ class SettingsUsernameController extends GetxController {
     super.onInit();
     loadUsername();
   }
-
-  void toggleEdit() => isEditing.value = !isEditing.value;
 
   Future<void> loadUsername() async {
     final uid = _auth.currentUser?.uid;
@@ -59,7 +56,6 @@ class SettingsUsernameController extends GetxController {
     await _firestore.collection('users').doc(uid).update({'username': trimmed});
 
     username.value = trimmed;
-    isEditing.value = false;
 
     homeController.updateUsernameLocally(trimmed);
 

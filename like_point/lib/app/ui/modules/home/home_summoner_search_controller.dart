@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/data/providers/match_history_provider.dart';
-import 'package:like_point/app/data/repositories/match_history_repository.dart';
-import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
-import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/summoner_page.dart';
 import 'package:like_point/app/data/repositories/summoner_repository.dart';
 import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
@@ -62,12 +58,6 @@ class HomeSummonerSearchController extends GetxController {
 
     Get.to(
       () => SummonerPage(riotId: name, platform: platform, region: region),
-      binding: BindingsBuilder(() {
-        Get.put(SummonerController(repository: Get.find()));
-        Get.put(MatchHistoryProvider(Get.find()));
-        Get.put(MatchHistoryRepository(matchProvider: Get.find()));
-        Get.put(MatchHistoryController(repository: Get.find()));
-      }),
     );
   }
 }

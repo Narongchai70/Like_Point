@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_point/app/data/providers/champion_detail_provider.dart';
 import 'package:like_point/app/ui/modules/champion/champion_controller.dart';
 import 'package:like_point/app/ui/modules/champion/champion_data.dart';
-import 'package:like_point/app/ui/modules/champion/champion_detail_controller.dart';
 
 class ChampionListView extends StatelessWidget {
   const ChampionListView({super.key});
@@ -49,18 +47,7 @@ class ChampionListView extends StatelessWidget {
 
             return InkWell(
               onTap: () {
-                Get.to(
-                  () => ChampionData(championId: champion.id),
-                  binding: BindingsBuilder(() {
-                    Get.put(ChampionDetailProvider());
-                    Get.put(
-                      ChampionDetailController(
-                        provider: Get.find(),
-                        versionProvider: Get.find(),
-                      ),
-                    );
-                  }),
-                );
+                Get.to(() => ChampionData(championId: champion.id));
               },
               child: Column(
                 children: [

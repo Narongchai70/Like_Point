@@ -7,7 +7,6 @@ class ChampionSearchTextFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
       decoration: const BoxDecoration(
         boxShadow: [BoxShadow(color: Color.fromARGB(0, 0, 0, 25))],
       ),

@@ -46,9 +46,9 @@ class SummonerRankCard extends StatelessWidget {
                     : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Tier Rank LP",
-                          style: TextStyle(
+                        Text(
+                          "${rank.tier} ${rank.rank} - ${rank.lp} LP",
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,

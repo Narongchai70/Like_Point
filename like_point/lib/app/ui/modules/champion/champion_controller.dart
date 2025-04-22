@@ -26,7 +26,6 @@ class ChampionController extends GetxController {
       champions.value = result;
       filteredChampions.value = result;
     } catch (e) {
-      print("Error fetching champions: $e");
     } finally {
       isLoading.value = false;
     }

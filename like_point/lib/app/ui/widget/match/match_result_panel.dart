@@ -16,7 +16,13 @@ class MatchResultPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 60,
-      color: color,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          bottomLeft: Radius.circular(8),
+        ),
+      ),
       alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

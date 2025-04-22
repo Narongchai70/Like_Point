@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 import 'package:like_point/app/ui/widget/navbar_service/home_navigation.dart';
+import 'package:like_point/app/app_binding.dart'; 
 
 class LoginController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -21,8 +22,10 @@ class LoginController extends GetxController {
         backgroundColor: Colors.green.shade600,
         icon: Icons.check_circle_outline,
       );
-
-      Get.offAll(() => HomeNavigation());
+      Get.offAll(
+        () => HomeNavigation(),
+        binding: AppBinding(),
+      );
     } on FirebaseAuthException catch (e) {
       String message = "Login failed.";
       if (e.code == 'user-not-found') {

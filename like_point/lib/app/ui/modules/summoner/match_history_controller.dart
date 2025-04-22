@@ -11,14 +11,9 @@ class MatchHistoryController extends GetxController {
   final matchList = <MatchInfo>[].obs;
   final isLoading = false.obs;
 
-  Future<void> loadMatchHistory({
-    required String puuid,
-    bool forceRefresh = false,
-  }) async {
+  Future<void> loadMatchHistory({required String puuid}) async {
     final dropdownController = Get.find<HomeDropdownController>();
     final region = dropdownController.regionalRouting;
-
-    if (isLoading.value || (!forceRefresh && matchList.isNotEmpty)) return;
 
     isLoading.value = true;
 
@@ -30,22 +25,21 @@ class MatchHistoryController extends GetxController {
 
       matchList.clear();
 
-      for (int i = 0; i < matchIds.length; i++) {
-        final matchId = matchIds[i];
+      const batchSize = 5;
+      for (int i = 0; i < matchIds.length; i += batchSize) {
+        final batch = matchIds.skip(i).take(batchSize);
 
-        final detail = await repository.fetchMatchDetail(
-          matchId: matchId,
-          region: region,
-          puuid: puuid,
+        final futures = batch.map(
+          (matchId) => repository.fetchMatchDetail(
+            matchId: matchId,
+            region: region,
+            puuid: puuid,
+          ),
         );
 
-        if (detail != null) {
-          matchList.add(detail);
-        }
+        final results = await Future.wait(futures);
 
-        if ((i + 1) % 5 == 0) {
-          await Future.delayed(const Duration(seconds: 1));
-        }
+        matchList.addAll(results.whereType<MatchInfo>());
       }
 
       update();

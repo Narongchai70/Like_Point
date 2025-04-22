@@ -17,7 +17,7 @@ class AppColors {
   static const Color backgroundLight = Colors.white;
   static const Color backgroundDark = Colors.black;
 
-  // Card Background Colors UI ตัวอย่าง
+  // Card Background Colors UI 
   static const Color cardPurpleLight = Color(0xFF512DA8);
   static const Color cardPurpleDark = Color(0x0900FF13);
 

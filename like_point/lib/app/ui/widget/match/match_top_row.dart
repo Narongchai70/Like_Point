@@ -46,7 +46,6 @@ class MatchTopRow extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              // KDA + Queue
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

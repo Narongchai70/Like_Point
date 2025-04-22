@@ -18,7 +18,7 @@ class ChampionData extends StatefulWidget {
 
 class _ChampionDataState extends State<ChampionData> {
   final HomeController homeController = Get.find();
-  final ChampionDetailController detailController = Get.find(); 
+  final ChampionDetailController detailController = Get.find();
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class _ChampionDataState extends State<ChampionData> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenWidth * 0.05),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -90,7 +90,7 @@ class _ChampionDataState extends State<ChampionData> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenWidth * 0.05),
                     ChampionSkillTile(
                       image: champion.passiveImageUrl,
                       title: 'PASSIVE: ${champion.passiveName}',

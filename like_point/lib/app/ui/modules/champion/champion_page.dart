@@ -4,7 +4,6 @@ import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/theme/theme_controller.dart';
 import 'package:like_point/app/ui/widget/champion/champion_list_view.dart';
-import 'package:like_point/app/ui/widget/champion/champion_search_button.dart';
 import 'package:like_point/app/ui/widget/champion/champion_search_text_file.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/modules/champion/champion_controller.dart';
@@ -44,8 +43,6 @@ class ChampionPage extends StatelessWidget {
                               champController.searchText.value = value,
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      ChampionSearchButton(onPressed: () {}),
                     ],
                   ),
                 ),

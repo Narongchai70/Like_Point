@@ -1,16 +1,11 @@
 import 'package:get/get.dart';
 import 'package:like_point/app/data/modle/campion_detail_model.dart';
-import 'package:like_point/app/data/providers/champion_detail_provider.dart';
-import 'package:like_point/app/data/providers/version_provider.dart';
+import 'package:like_point/app/data/repositories/champion_detail_repository.dart';
 
 class ChampionDetailController extends GetxController {
-  final ChampionDetailProvider provider;
-  final VersionProvider versionProvider;
+  final ChampionDetailRepository repository;
 
-  ChampionDetailController({
-    required this.provider,
-    required this.versionProvider,
-  });
+  ChampionDetailController({required this.repository});
 
   var isLoading = false.obs;
   var detail = Rxn<ChampionDetailModel>();
@@ -18,13 +13,10 @@ class ChampionDetailController extends GetxController {
   Future<void> loadChampionDetail(String id) async {
     try {
       isLoading.value = true;
-
-      final version = await versionProvider.fetchLatestVersion();
-      final json = await provider.fetchChampionDetail(id, version);
-      final result = ChampionDetailModel.fromJson(json, version);
+      final result = await repository.fetchDetail(id);
       detail.value = result;
     } catch (e) {
-      print('Error loading champion detail: $e');
+      print('Error: $e');
     } finally {
       isLoading.value = false;
     }

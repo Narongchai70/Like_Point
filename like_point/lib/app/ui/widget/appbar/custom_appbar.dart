@@ -7,13 +7,13 @@ import 'package:like_point/app/ui/widget/theme/theme_toggle_switch.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final RxString username;
   final VoidCallback? onBack;
-  final bool showBackButton; // ✅ ใหม่
+  final bool showBackButton; 
 
   CustomAppBar({
     super.key,
     required this.username,
     this.onBack,
-    this.showBackButton = true, // ✅ ถ้าไม่กำหนด จะ "แสดง" back button
+    this.showBackButton = true, 
   });
 
   final ThemeController themeController = Get.find();
@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: onBack ?? () => Get.back(),
                 )
               else
-                const SizedBox(width: 16), // เว้นที่ให้ layout ไม่ขยับ
+                const SizedBox(width: 16),
               Obx(
                 () => Text(
                   'Hi, ${username.value}',
