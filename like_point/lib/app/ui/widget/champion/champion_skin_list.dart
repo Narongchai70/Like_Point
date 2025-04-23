@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:like_point/app/data/modle/campion_detail_model.dart';
+import 'package:like_point/app/ui/widget/network_image_with_load.dart';
 
 class ChampionSkinList extends StatelessWidget {
   final List<Skin> skins;
@@ -13,7 +14,11 @@ class ChampionSkinList extends StatelessWidget {
       children: [
         const Text(
           'Available Skins',
-          style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 12),
         SizedBox(
@@ -25,14 +30,12 @@ class ChampionSkinList extends StatelessWidget {
               final skin = skins[index];
               return Column(
                 children: [
-                  ClipRRect(
+                  NetworkImageWithLoader(
+                    imageUrl: skin.imageUrl,
+                    width: 120,
+                    height: 120,
+                    fit: BoxFit.fill,
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      skin.imageUrl,
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.fill,
-                    ),
                   ),
                   const SizedBox(height: 6),
                   SizedBox(
@@ -44,7 +47,7 @@ class ChampionSkinList extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                     ),
-                  )
+                  ),
                 ],
               );
             },

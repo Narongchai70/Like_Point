@@ -10,7 +10,6 @@ class MatchHistoryCard extends StatelessWidget {
 
   const MatchHistoryCard({super.key, required this.match});
 
-  @override
   String _queueTypeName(String queueId) {
     switch (queueId) {
       case '420':
@@ -37,6 +36,7 @@ class MatchHistoryCard extends StatelessWidget {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     final isWin = match.result == "Win";
     final resultColor = isWin ? Colors.blue : Colors.red;
@@ -60,6 +60,7 @@ class MatchHistoryCard extends StatelessWidget {
               duration: match.gameDuration,
               color: resultColor,
             ),
+
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -71,8 +72,11 @@ class MatchHistoryCard extends StatelessWidget {
                       kdaColor: kdaColor,
                       queueTypeLabel: queueTypeLabel,
                       playedTimeLabel: playedTimeLabel,
+                      keystoneId: int.tryParse(match.runes[0]) ?? 8000,
+                      subStyleId: int.tryParse(match.runes[1]) ?? 8400,
                     ),
-                    const SizedBox(height: 6),
+
+                    const SizedBox(height: 4),
                     MatchItemRow(items: match.items),
                   ],
                 ),

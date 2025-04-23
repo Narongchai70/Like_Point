@@ -6,6 +6,7 @@ import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
 import 'package:like_point/app/ui/widget/champion/champion_role_and_difficulty.dart';
 import 'package:like_point/app/ui/widget/champion/champion_skill_tile.dart';
 import 'package:like_point/app/ui/widget/champion/champion_skin_list.dart';
+import 'package:like_point/app/ui/widget/network_image_with_load.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 
 class ChampionData extends StatefulWidget {
@@ -43,7 +44,8 @@ class _ChampionDataState extends State<ChampionData> {
               ),
             ),
             Obx(() {
-              if (detailController.isLoading.value || detailController.detail.value == null) {
+              if (detailController.isLoading.value ||
+                  detailController.detail.value == null) {
                 return const Center(child: CircularProgressIndicator());
               }
 
@@ -72,14 +74,12 @@ class _ChampionDataState extends State<ChampionData> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ClipRRect(
+                        NetworkImageWithLoader(
+                          imageUrl: champion.fullImageUrl,
+                          width: screenWidth * 0.55,
+                          height: screenWidth * 0.55,
+                          fit: BoxFit.fill,
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            champion.fullImageUrl,
-                            width: screenWidth * 0.55,
-                            height: screenWidth * 0.55,
-                            fit: BoxFit.fill,
-                          ),
                         ),
                         SizedBox(width: screenWidth * 0.05),
                         Expanded(
@@ -97,11 +97,13 @@ class _ChampionDataState extends State<ChampionData> {
                       description: champion.passiveDescription,
                     ),
                     const SizedBox(height: 12),
-                    ...champion.spells.map((skill) => ChampionSkillTile(
-                          image: skill.imageUrl,
-                          title: skill.name,
-                          description: skill.description,
-                        )),
+                    ...champion.spells.map(
+                      (skill) => ChampionSkillTile(
+                        image: skill.imageUrl,
+                        title: skill.name,
+                        description: skill.description,
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     ChampionSkinList(skins: champion.skins),
                   ],

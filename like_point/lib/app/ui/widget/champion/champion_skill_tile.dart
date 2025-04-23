@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:like_point/app/ui/widget/network_image_with_load.dart';
 
 class ChampionSkillTile extends StatelessWidget {
   final String image;
@@ -17,23 +18,25 @@ class ChampionSkillTile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ClipRRect(
+        NetworkImageWithLoader(
+          imageUrl: image,
+          width: 48,
+          height: 48,
+          fit: BoxFit.cover,
           borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            image,
-            width: 48,
-            height: 48,
-            fit: BoxFit.cover,
-          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(description, style: const TextStyle(color: Colors.white)),
             ],

@@ -50,6 +50,7 @@ flutter:
      - assets/icon/
      - assets/rank/
      - assets/role/
+     - assets/rune/
      
 
 flutter_launcher_icons:
