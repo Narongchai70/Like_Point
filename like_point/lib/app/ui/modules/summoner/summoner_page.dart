@@ -1,11 +1,16 @@
-import 'dart:io';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:flutter/rendering.dart';
+import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
 import 'package:like_point/app/ui/widget/summoner/summonner_unranked_card.dart';
+
 import 'package:permission_handler/permission_handler.dart';
+
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/match_history_page%20.dart';
@@ -16,15 +21,17 @@ import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_header.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_rank_card.dart';
 
+const platform = MethodChannel('com.example.like_point/media_scanner');
+
 class SummonerPage extends StatelessWidget {
   final String riotId;
-  final String platform;
+  final String platformName;
   final String region;
 
   SummonerPage({
     super.key,
     required this.riotId,
-    required this.platform,
+    required this.platformName,
     required this.region,
   });
 
@@ -34,27 +41,20 @@ class SummonerPage extends StatelessWidget {
     try {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
       final sdkInt = androidInfo.version.sdkInt;
-
       PermissionStatus permissionStatus;
       if (sdkInt >= 33) {
         permissionStatus = await Permission.photos.request();
       } else {
         permissionStatus = await Permission.storage.request();
       }
-
       if (!permissionStatus.isGranted) {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-          SnackBar(
-            content: const Text(
-              "\u274c \u0e01\u0e23\u0e38\u0e13\u0e32\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e",
-            ),
-            action: SnackBarAction(
-              label:
-                  "\u0e40\u0e1b\u0e34\u0e14\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32",
-              onPressed: openAppSettings,
-            ),
-          ),
+        showSnackBar(
+          title: 'Permission Denied',
+          message: 'Please allow access to save the image.',
+          backgroundColor: Colors.redAccent,
+          icon: Icons.block,
         );
+        openAppSettings();
         return;
       }
 
@@ -62,12 +62,11 @@ class SummonerPage extends StatelessWidget {
           _captureKey.currentContext?.findRenderObject()
               as RenderRepaintBoundary?;
       if (boundary == null) {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "\u0e44\u0e21\u0e48\u0e1e\u0e1a\u0e27\u0e31\u0e15\u0e16\u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e20\u0e32\u0e1e",
-            ),
-          ),
+        showSnackBar(
+          title: 'Capture Error',
+          message: 'No widget found to capture.',
+          backgroundColor: Colors.orange,
+          icon: Icons.image_not_supported,
         );
         return;
       }
@@ -80,27 +79,26 @@ class SummonerPage extends StatelessWidget {
       if (!(await directory.exists())) {
         await directory.create(recursive: true);
       }
-
       final file = File(
         '${directory.path}/summoner_${DateTime.now().millisecondsSinceEpoch}.png',
       );
       await file.writeAsBytes(pngBytes);
 
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(
-          content: Text(
-            "\u2705 \u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ${file.path}",
-          ),
-        ),
+      await platform.invokeMethod('scanFile', {'path': file.path});
+
+      showSnackBar(
+        title: 'Saved Successfully',
+        message: 'Image saved successfully.',
+        backgroundColor: Colors.green,
+        icon: Icons.check_circle_outline,
       );
     } catch (e) {
-      print("\u274c Error: $e");
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "\u274c \u0e40\u0e01\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e1c\u0e25\u0e1e\u0e25\u0e32\u0e14\u0e43\u0e19\u0e01\u0e32\u0e23\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e20\u0e32\u0e1e",
-          ),
-        ),
+      print("❌ Error: $e");
+      showSnackBar(
+        title: 'Error',
+        message: 'Failed to save the image.',
+        backgroundColor: Colors.redAccent,
+        icon: Icons.error,
       );
     }
   }
@@ -112,7 +110,7 @@ class SummonerPage extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller
-          .loadProfile(riotId: riotId, platform: platform, region: region)
+          .loadProfile(riotId: riotId, platform: platformName, region: region)
           .then((_) {
             final puuid = controller.puuid.value;
             if (puuid.isNotEmpty) {
@@ -167,34 +165,36 @@ class SummonerPage extends StatelessWidget {
                 children: [
                   RepaintBoundary(
                     key: _captureKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SummonerHeader(
-                          profile: profile,
-                          onCapture: _captureAndSave,
-                        ),
-                        const SizedBox(height: 24),
-                        const Text(
-                          "Personal Ratings",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textLight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: AppColors.getBackgroundGradient(context),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SummonerHeader(
+                            profile: profile,
+                            onCapture: _captureAndSave,
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        sortedRanks.isEmpty
-                            ? const UnrankedRankCard()
-                            : Column(
-                              children:
-                                  sortedRanks
-                                      .map(
-                                        (rank) => SummonerRankCard(rank: rank),
-                                      )
-                                      .toList(),
+                          const SizedBox(height: 24),
+                          const Text(
+                            "Personal Ratings",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textLight,
                             ),
-                      ],
+                          ),
+                          const SizedBox(height: 12),
+                          sortedRanks.isEmpty
+                              ? const UnrankedRankCard()
+                              : Column(
+                                  children: sortedRanks
+                                      .map((rank) => SummonerRankCard(rank: rank))
+                                      .toList(),
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -230,7 +230,6 @@ class SummonerPage extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             decoration: TextDecoration.underline,
-                            decorationColor: Colors.white,
                           ),
                         ),
                       ),
@@ -246,13 +245,11 @@ class SummonerPage extends StatelessWidget {
                         style: TextStyle(color: AppColors.textLight),
                       );
                     }
-
                     return Column(
-                      children:
-                          matches
-                              .take(5)
-                              .map((match) => MatchHistoryCard(match: match))
-                              .toList(),
+                      children: matches
+                          .take(5)
+                          .map((match) => MatchHistoryCard(match: match))
+                          .toList(),
                     );
                   }),
                 ],

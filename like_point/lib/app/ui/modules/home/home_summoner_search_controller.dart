@@ -57,7 +57,7 @@ class HomeSummonerSearchController extends GetxController {
     }
 
     Get.to(
-      () => SummonerPage(riotId: name, platform: platform, region: region),
+      () => SummonerPage(riotId: name, platformName: platform, region: region),
     );
   }
 }
