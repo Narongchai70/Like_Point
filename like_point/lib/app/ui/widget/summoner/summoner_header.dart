@@ -4,8 +4,13 @@ import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 
 class SummonerHeader extends StatelessWidget {
   final SummonerProfile profile;
+  final VoidCallback onCapture;
 
-  const SummonerHeader({super.key, required this.profile});
+  const SummonerHeader({
+    super.key,
+    required this.profile,
+    required this.onCapture,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +52,14 @@ class SummonerHeader extends StatelessWidget {
               ],
             ),
           ),
-          const Column(
+          Column(
             children: [
-              Icon(Icons.star_border, color: Colors.white),
-              SizedBox(height: 8),
-              Icon(Icons.save_alt_rounded, color: Colors.white),
+              const Icon(Icons.star_border, color: Colors.white),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: onCapture,
+                child: const Icon(Icons.save_alt_rounded, color: Colors.white),
+              ),
             ],
           ),
         ],
