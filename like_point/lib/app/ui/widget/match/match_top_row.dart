@@ -230,7 +230,7 @@ class MatchTopRow extends StatelessWidget {
                     playedTimeLabel,
                     style: const TextStyle(
                       color: AppColors.textLight,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                 ],

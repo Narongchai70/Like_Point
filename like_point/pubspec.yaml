@@ -1,27 +1,16 @@
 name: like_point
 description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
   sdk: ^3.7.2
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_launcher_icons: ^0.14.3
   flutter_native_splash: ^2.4.5
@@ -36,42 +25,34 @@ dependencies:
   http: ^1.3.0
   path_provider: ^2.1.5
   share_plus: ^11.0.0
-<<<<<<< HEAD
-=======
   permission_handler: ^12.0.0+1
   device_info_plus: ^11.4.0
->>>>>>> f7d80ae7154708439bf0604574ef735b710b955c
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
 
 flutter:
-
   uses-material-design: true
-
-  
   assets:
-     - assets/icon/
-     - assets/rank/
-     - assets/role/
-     - assets/rune/
-     
+    - assets/icon/
+    - assets/rank/
+    - assets/role/
+    - assets/rune/
 
 flutter_launcher_icons:
-  android:  true
-  ios:  false
+  android: true
+  ios: false
   image_path: "assets/icon/IconApp.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  min_sdk_android: 21
   adaptive_icon_background: "#FFFFFF"
+
 flutter_native_splash:
-  color: "#ffffff" # สีพื้นพื้ หลังของ Splash Screen
-  image: "assets/icon/IconApp.png" # ไฟล์โลโก้
+  color: "#ffffff"
+  image: "assets/icon/IconApp.png"
   android: true
   ios: false
   android_12:
     color: "#CAA1FF"
     image: "assets/icon/IconApp.png"
-  
