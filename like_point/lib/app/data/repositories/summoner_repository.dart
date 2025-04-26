@@ -60,23 +60,29 @@ class SummonerRepository {
         token,
         region,
       );
-      final ranks = (rankRes.data as List)
-          .map((e) => RankInfo(
-                queueType: e['queueType'],
-                tier: e['tier'],
-                rank: e['rank'],
-                lp: e['leaguePoints'],
-                wins: e['wins'],
-                losses: e['losses'],
-              ))
-          .toList();
+      final ranks =
+          (rankRes.data as List)
+              .map(
+                (e) => RankInfo(
+                  queueType: e['queueType'],
+                  tier: e['tier'],
+                  rank: e['rank'],
+                  lp: e['leaguePoints'],
+                  wins: e['wins'],
+                  losses: e['losses'],
+                ),
+              )
+              .toList();
 
       return SummonerProfile(
         name: name,
         level: level,
         profileIconUrl: profileIconUrl,
         ranks: ranks,
-        puuid: puuid
+        puuid: puuid,
+        platform: platform,
+        region: region,
+        tagLine: tagLine,
       );
     } catch (e) {
       return null;

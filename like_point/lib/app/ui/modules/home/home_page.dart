@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:like_point/app/ui/modules/home/followed_players_section.dart';
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/modules/home/home_summoner_search_controller.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
-import 'package:like_point/app/ui/widget/home/home_bottun_text_see_all.dart';
-import 'package:like_point/app/ui/widget/home/home_carouselview.dart';
 import 'package:like_point/app/ui/widget/home/home_dropdown.dart';
 import 'package:like_point/app/ui/widget/home/home_search_button.dart';
 import 'package:like_point/app/ui/widget/home/home_search_text_file.dart';
@@ -32,7 +31,7 @@ class HomePage extends StatelessWidget {
       extendBody: true,
       appBar: CustomAppBar(
         username: controller.username,
-        showBackButton: false, 
+        showBackButton: false,
       ),
       body: Stack(
         children: [
@@ -81,12 +80,10 @@ class HomePage extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const Spacer(),
-                            HomeBottunTextSeeAll(),
                           ],
                         ),
                         SizedBox(height: screenHeight * 0.02),
-                        HomeCarouselview(),
+                        FollowedPlayersSection(),
                       ],
                     ),
                   ),

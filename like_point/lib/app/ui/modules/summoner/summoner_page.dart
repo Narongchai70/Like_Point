@@ -4,22 +4,19 @@ import 'package:get/get.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
-
 import 'package:flutter/rendering.dart';
-import 'package:like_point/app/ui/widget/%E0%B8%B7snackbar_service.dart';
-import 'package:like_point/app/ui/widget/summoner/summonner_unranked_card.dart';
-
+import 'package:like_point/app/ui/modules/summoner/match_history_page%20.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:like_point/app/ui/modules/home/home_controller.dart';
 import 'package:like_point/app/ui/modules/summoner/match_history_controller.dart';
-import 'package:like_point/app/ui/modules/summoner/match_history_page%20.dart';
 import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/widget/appbar/custom_appbar.dart';
 import 'package:like_point/app/ui/widget/match/match_history_card.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_header.dart';
+import 'package:like_point/app/ui/widget/summoner/summonner_unranked_card.dart';
 import 'package:like_point/app/ui/widget/summoner/summoner_rank_card.dart';
+import 'package:like_point/app/ui/widget/ืsnackbar_service.dart';
 
 const platform = MethodChannel('com.example.like_point/media_scanner');
 
@@ -93,7 +90,6 @@ class SummonerPage extends StatelessWidget {
         icon: Icons.check_circle_outline,
       );
     } catch (e) {
-      print("❌ Error: $e");
       showSnackBar(
         title: 'Error',
         message: 'Failed to save the image.',
@@ -150,11 +146,13 @@ class SummonerPage extends StatelessWidget {
             final sortedRanks = profile.ranks.toList();
             sortedRanks.sort((a, b) {
               if (a.queueType == "RANKED_SOLO_5x5" &&
-                  b.queueType != "RANKED_SOLO_5x5")
+                  b.queueType != "RANKED_SOLO_5x5") {
                 return -1;
+              }
               if (a.queueType != "RANKED_SOLO_5x5" &&
-                  b.queueType == "RANKED_SOLO_5x5")
+                  b.queueType == "RANKED_SOLO_5x5") {
                 return 1;
+              }
               return 0;
             });
 
@@ -175,6 +173,8 @@ class SummonerPage extends StatelessWidget {
                           SummonerHeader(
                             profile: profile,
                             onCapture: _captureAndSave,
+                            platform: platformName,
+                            region: region,
                           ),
                           const SizedBox(height: 24),
                           const Text(
@@ -189,10 +189,14 @@ class SummonerPage extends StatelessWidget {
                           sortedRanks.isEmpty
                               ? const UnrankedRankCard()
                               : Column(
-                                  children: sortedRanks
-                                      .map((rank) => SummonerRankCard(rank: rank))
-                                      .toList(),
-                                ),
+                                children:
+                                    sortedRanks
+                                        .map(
+                                          (rank) =>
+                                              SummonerRankCard(rank: rank),
+                                        )
+                                        .toList(),
+                              ),
                         ],
                       ),
                     ),
@@ -246,10 +250,11 @@ class SummonerPage extends StatelessWidget {
                       );
                     }
                     return Column(
-                      children: matches
-                          .take(5)
-                          .map((match) => MatchHistoryCard(match: match))
-                          .toList(),
+                      children:
+                          matches
+                              .take(5)
+                              .map((match) => MatchHistoryCard(match: match))
+                              .toList(),
                     );
                   }),
                 ],

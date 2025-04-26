@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:like_point/app/data/modle/summoner_profile.dart';
+import 'package:like_point/app/ui/modules/summoner/summoner_controller.dart';
 import 'package:like_point/app/ui/widget/theme/app_colors.dart';
 
 class SummonerHeader extends StatelessWidget {
   final SummonerProfile profile;
   final VoidCallback onCapture;
+  final String platform;
+  final String region;
 
   const SummonerHeader({
     super.key,
     required this.profile,
     required this.onCapture,
+    required this.platform,
+    required this.region,
   });
 
   @override
   Widget build(BuildContext context) {
+    final SummonerController controller = Get.find();
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -54,7 +62,21 @@ class SummonerHeader extends StatelessWidget {
           ),
           Column(
             children: [
-              const Icon(Icons.star_border, color: Colors.white),
+              Obx(() {
+                final isFollowing = controller.isFollowing.value;
+                return GestureDetector(
+                  onTap: () async {
+                    await controller.toggleFollowAndHandle(
+                      platform: platform,
+                      region: region,
+                    );
+                  },
+                  child: Icon(
+                    isFollowing ? Icons.star : Icons.star_border,
+                    color: Colors.yellowAccent,
+                  ),
+                );
+              }),
               const SizedBox(height: 8),
               GestureDetector(
                 onTap: onCapture,

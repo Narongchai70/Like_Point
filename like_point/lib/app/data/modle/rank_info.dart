@@ -19,4 +19,15 @@ class RankInfo {
     final total = wins + losses;
     return total == 0 ? 0 : (wins / total) * 100;
   }
+
+  factory RankInfo.fromMap(Map<String, dynamic> map) {
+    return RankInfo(
+      queueType: map['queueType'] ?? '',
+      tier: map['tier'] ?? '',
+      rank: map['rank'] ?? '',
+      lp: map['leaguePoints'] ?? 0,
+      wins: map['wins'] ?? 0,
+      losses: map['losses'] ?? 0,
+    );
+  }
 }
