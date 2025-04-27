@@ -34,9 +34,10 @@ class FollowedPlayersSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: 80,
+            height: 200,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               itemCount: controller.followedList.length,
               separatorBuilder: (context, index) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
@@ -57,8 +58,8 @@ class FollowedPlayersSection extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
                           player.profileIconUrl,
-                          width: 50,
-                          height: 50,
+                          width: 130,
+                          height: 130,
                           fit: BoxFit.cover,
                           errorBuilder:
                               (_, __, ___) =>
@@ -67,14 +68,15 @@ class FollowedPlayersSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       SizedBox(
-                        width: 60,
+                        width: 100,
                         child: Text(
-                          player.name,
+                          '${player.name} (${player.region.toUpperCase()})',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
                           overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingEmailTextField extends StatefulWidget {
   const SettingEmailTextField({super.key});
 
   @override
-  State<SettingEmailTextField> createState() => _SettingTextFieldState();
+  State<SettingEmailTextField> createState() => _SettingEmailTextFieldState();
 }
 
-class _SettingTextFieldState extends State<SettingEmailTextField> {
+class _SettingEmailTextFieldState extends State<SettingEmailTextField> {
+  String? userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      userEmail = user?.email;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,18 +36,16 @@ class _SettingTextFieldState extends State<SettingEmailTextField> {
       child: TextField(
         enabled: false,
         decoration: InputDecoration(
-  labelText: 'toey1234@gmail.com',
-  labelStyle: TextStyle(color: Colors.black),
-  filled: true,
-  fillColor: Colors.white,
-  disabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(8),
-    borderSide: BorderSide(color: Colors.black, width: 1.5),
-  ),
-),
-
+          labelText: userEmail ?? 'Loading...',
+          labelStyle: const TextStyle(color: Colors.black),
+          filled: true,
+          fillColor: Colors.white,
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.black, width: 1.5),
+          ),
         ),
-      );
-    
+      ),
+    );
   }
 }
