@@ -23,9 +23,10 @@ class NavigationBarService extends StatelessWidget {
           Icon(
             icon,
             size: isSelected ? 38 : 30,
-            color: isSelected
-                ? const Color.fromARGB(255, 128, 33, 155)
-                : Colors.grey.shade400,
+            color:
+                isSelected
+                    ? const Color.fromARGB(255, 128, 33, 155)
+                    : Colors.grey.shade400,
           ),
           const SizedBox(height: 4),
           Text(
@@ -33,9 +34,10 @@ class NavigationBarService extends StatelessWidget {
             style: TextStyle(
               fontSize: isSelected ? 16 : 11,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected
-                  ? const Color.fromARGB(255, 128, 33, 155)
-                  : Colors.grey.shade400,
+              color:
+                  isSelected
+                      ? const Color.fromARGB(255, 128, 33, 155)
+                      : Colors.grey.shade400,
             ),
           ),
         ],
@@ -62,7 +64,7 @@ class NavigationBarService extends StatelessWidget {
           ),
           child: NavigationBarTheme(
             data: NavigationBarThemeData(
-              height: 65, 
+              height: 65,
               backgroundColor: Colors.transparent,
               indicatorColor: Colors.transparent,
               surfaceTintColor: Colors.white,
@@ -90,17 +92,9 @@ class NavigationBarService extends StatelessWidget {
                 ),
                 NavigationDestination(
                   icon: _buildNavItem(
-                    icon: Icons.person,
-                    label: 'Profile',
-                    isSelected: selectedIndex == 2,
-                  ),
-                  label: '',
-                ),
-                NavigationDestination(
-                  icon: _buildNavItem(
                     icon: Icons.settings,
                     label: 'Setting',
-                    isSelected: selectedIndex == 3,
+                    isSelected: selectedIndex == 2,
                   ),
                   label: '',
                 ),
