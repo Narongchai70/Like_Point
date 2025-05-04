@@ -234,6 +234,7 @@ class SummonerPage extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             decoration: TextDecoration.underline,
+                            decorationColor: Colors.white,
                           ),
                         ),
                       ),
