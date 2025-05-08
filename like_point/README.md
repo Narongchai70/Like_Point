@@ -3,8 +3,10 @@
 LikePoint คือแอป Flutter ที่ช่วยให้ผู้เล่น League of Legends สามารถค้นหาข้อมูลผู้เล่น ดูประวัติการเล่น และติดตามผู้เล่นคนโปรดผ่าน Riot API
 
 ## Installation
-
+(``` git clone https://github.com/username/likepoint.git
+cd likepoint)
 This project is a starting point for a Flutter application.
+
 
 A few resources to get you started if this is your first Flutter project:
 
