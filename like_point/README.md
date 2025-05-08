@@ -13,7 +13,8 @@ LikePoint คือแอป Flutter ที่ช่วยให้ผู้เ�
 
 ## Installation
 Clone Repository
-```https://github.com/Narongchai70/Like_Point.git  cd likepoint```
+```https://github.com/Narongchai70/Like_Point.git
+cd likepoint```
 
 ## โครงสร้างโปรเจกต์ (Project Structure)
 ```
